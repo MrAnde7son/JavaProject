@@ -4,7 +4,7 @@ import java.io.IOException;
 
 /***
  * save_maze command. Saves maze to file.
- * @author Itamar
+ * @author Itamar Mizrahi
  *
  */
 public class SaveMazeCommand extends CommonCommand {

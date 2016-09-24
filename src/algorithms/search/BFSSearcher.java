@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Implementation of Best-First Search algorithm
  * 
- * @author  Itamar
+ * @author  Itamar Mizrahi
  * @version 1.0
  * 
  */

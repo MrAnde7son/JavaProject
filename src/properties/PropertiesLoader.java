@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 
 /***
  * Properties loader of Maze3d properties
- * @author Itamar&Chen
+ * @author Itamar Mizrahi&Chen Erlich
  *
  */
 public class PropertiesLoader {

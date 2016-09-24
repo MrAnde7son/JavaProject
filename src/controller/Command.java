@@ -1,7 +1,7 @@
 package controller;
 /***
  * Represents a command functionality
- * @author Itamar&Chen
+ * @author Itamar Mizrahi&Chen Erlich
  *
  */
 public interface Command {

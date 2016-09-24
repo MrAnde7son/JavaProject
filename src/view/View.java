@@ -3,7 +3,7 @@ package view;
 import algorithms.mazeGenerators.Maze3d;
 /***
  * View in MVP architecture.
- * @author Itamar&Chen
+ * @author Itamar Mizrahi&Chen Erlich
  *
  */
 public interface View {

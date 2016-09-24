@@ -7,7 +7,7 @@ import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 /***
  * Model in MVP architecutr
- * @author Itamar&Chen
+ * @author Itamar Mizrahi&Chen Erlich
  *
  */
 public interface Model {

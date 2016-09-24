@@ -8,7 +8,7 @@ import java.util.Observable;
 
 /***
  * CLI in MVP architecture.
- * @author Itamar&Chen
+ * @author Itamar Mizrahi&Chen Erlich
  *
  */
 public class CLI extends Observable {

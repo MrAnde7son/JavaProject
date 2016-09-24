@@ -4,7 +4,7 @@ import model.Model;
 import view.View;
 /***
  * Abstract class for Controller types.
- * @author Itamar&Chen
+ * @author Itamar Mizrahi&Chen Erlich
  *
  */
 public abstract class CommonController implements Controller {

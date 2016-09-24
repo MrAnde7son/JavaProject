@@ -3,7 +3,7 @@ package algorithms.search;
 /**
  * Defines a State<T> in a searching problem.
  * 
- * @author  Itamar
+ * @author  Itamar Mizrahi
  * @version 1.0
  * 
  */

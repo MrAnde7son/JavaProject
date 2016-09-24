@@ -1,7 +1,7 @@
 package controller;
 /***
  * Controller component in MVC.
- * @author Itamar&Chen
+ * @author Itamar Mizrahi&Chen Erlich
  *
  */
 public interface Controller {

@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Defines a Searchable type, one who can operate with function search(Searchable s).
  * These three functions define a Searchable type.
  * 
- * @author Itamar & Chen
+ * @author Itamar Mizrahi & Chen Erlich
  * @version 1.0
  * 
  */

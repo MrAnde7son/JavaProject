@@ -4,7 +4,7 @@ package algorithms.search;
  * Defines a Searcher for a searching problem.
  * Operates on type of Searchable.
  * 
- * @author  Itamar
+ * @author  Itamar Mizrahi
  * @version 1.0
  * 
  */

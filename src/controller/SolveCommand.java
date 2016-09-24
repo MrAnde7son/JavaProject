@@ -10,7 +10,7 @@ import model.MyModel;
 
 /***
  * solve command. Solves a given maze.
- * @author Itamar
+ * @author Itamar Mizrahi
  *
  */
 public class SolveCommand extends CommonCommand {

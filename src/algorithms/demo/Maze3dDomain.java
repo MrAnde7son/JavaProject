@@ -12,7 +12,7 @@ import algorithms.search.Searchable;
  * Implements Searchable and contains a Maze3d object.
  * This class is domain specific for Maze3d domain.
  * 
- * @author Itamar
+ * @author Itamar Mizrahi & Chen Erlich
  *
  */
 

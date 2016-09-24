@@ -16,7 +16,7 @@ import algorithms.mazeGenerators.Maze3d;
 
 /***
  * MazeWindowC
- * @author Itamar&Chen
+ * @author Itamar Mizrahi&Chen Erlich
  *
  */
 public class MazeWindowC extends BasicWindow implements View {

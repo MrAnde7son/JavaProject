@@ -3,7 +3,7 @@ package controller;
 
 /***
  * display_by_cross_section command. Displays a 2D maze cutted by a given column.
- * @author Itamar&Chen
+ * @author Itamar Mizrahi&Chen Erlich
  *
  */
 public class DisplayCrossSectionCommand extends CommonCommand {

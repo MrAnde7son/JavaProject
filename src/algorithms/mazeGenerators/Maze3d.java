@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /*
  * Represents a 3D Maze
- * Written by Itamar & Chen
+ * Written by Itamar Mizrahi & Chen Erlich
 */
 public class Maze3d {
 	

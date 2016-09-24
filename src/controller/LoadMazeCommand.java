@@ -4,7 +4,7 @@ import java.io.IOException;
 
 /***
  * load_maze command. Loads maze from file.
- * @author Itamar&Chen
+ * @author Itamar Mizrahi&Chen Erlich
  *
  */
 public class LoadMazeCommand extends CommonCommand {

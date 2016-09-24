@@ -5,7 +5,7 @@ import java.io.InputStream;
 
 /**
  * Decompresses a given data stream of type InputStream
- * @author Itamar Mizrahi
+ * @author Itamar Mizrahi Mizrahi
  *
  */
 public class MyDecompressorInputStream extends InputStream {

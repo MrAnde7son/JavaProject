@@ -6,7 +6,7 @@ import model.Model;
 import view.View;
 /***
  * Controller component in MVC. Designed to work with Maze3d.
- * @author Itamar & Chen
+ * @author Itamar Mizrahi & Chen Erlich
  *
  */
 public class MyController extends CommonController {

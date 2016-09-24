@@ -3,7 +3,7 @@ package controller;
 
 /***
  * display command. Displays a given maze by its name.
- * @author Itamar&Chen
+ * @author Itamar Mizrahi&Chen Erlich
  *
  */
 public class DisplayCommand extends CommonCommand {

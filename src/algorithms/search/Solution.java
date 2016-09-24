@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Defines a solution for a searching problem.
  * Solution is defined by the path taken, to get from the initial state to the goal.
  * 
- * @author  Itamar
+ * @author  Itamar Mizrahi
  * @version 1.0
  * 
  */
@@ -37,5 +37,13 @@ public class Solution<T> {
 		@SuppressWarnings("unchecked")
 		Solution<T> solution = (Solution<T>)obj;
 		return this.solution.equals(solution.solution);
+	}
+
+	public ArrayList<State<T>> getSolution() {
+		return solution;
+	}
+
+	public void setSolution(ArrayList<State<T>> solution) {
+		this.solution = solution;
 	}
 }

@@ -13,7 +13,7 @@ import algorithms.search.Solution;
 
 /***
  * MazeDisplayC
- * @author Itamar&Chen
+ * @author Itamar Mizrahi&Chen Erlich
  *
  */
 public class MazeDisplayC extends Canvas {

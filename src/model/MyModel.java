@@ -36,7 +36,7 @@ import algorithms.search.Solution;
 
 /***
  * Implementation of Model in MVP for Maze3d.
- * @author Itamar&Chen
+ * @author Itamar Mizrahi&Chen Erlich
  *
  */
 public class MyModel extends Observable implements Model {

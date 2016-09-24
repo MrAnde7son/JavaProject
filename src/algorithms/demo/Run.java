@@ -13,7 +13,6 @@ import algorithms.mazeGenerators.GrowingTreeGenerator;
 import algorithms.mazeGenerators.Maze3d;
 
 
-
 public class Run {
 
 	public static void main(String[] args) throws IOException {

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Implementation of Depth-First Search algorithm
  * 
- * @author  Itamar
+ * @author  Itamar Mizrahi
  * @version 1.0
  *
  */

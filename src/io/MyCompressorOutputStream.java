@@ -5,7 +5,7 @@ import java.io.OutputStream;
 
 /**
  * Compresses a given data stream of type OutputStream
- * @author Itamar Mizrahi
+ * @author Itamar Mizrahi Mizrahi
  */
 public class MyCompressorOutputStream extends OutputStream {
 

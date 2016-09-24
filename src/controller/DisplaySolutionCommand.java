@@ -6,7 +6,7 @@ import model.MyModel;
 
 /***
  * display_solution command. Displays the solution of a maze by its name.
- * @author Itamar & Chen
+ * @author Itamar Mizrahi & Chen Erlich
  *
  */
 public class DisplaySolutionCommand extends CommonCommand {
