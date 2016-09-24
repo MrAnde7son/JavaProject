@@ -20,7 +20,7 @@ public class MazeDisplay extends Canvas {
 	
 	private Maze3d maze;
 	private Position currPos;
-	private Solution<Position> solution;
+	private int[][] crossSection;
 	
 	public MazeDisplay(Shell parent, int style) {
 		super(parent, style);
@@ -33,20 +33,20 @@ public class MazeDisplay extends Canvas {
 				if (maze.getMaze() == null)
 					return;
 				
-				   e.gc.setForeground(new Color(null,0,0,0));
+				   e.gc.setForeground(new Color(null,255,255,255));
 				   e.gc.setBackground(new Color(null,0,0,0));
 
 				   int width=getSize().x;
 				   int height=getSize().y;
 
-				   int w=width/maze.getMaze()[0].length;
-				   int h=height/maze.getMaze().length;
+				   int w=width/crossSection[0].length;
+				   int h=height/crossSection.length;
 
 				   for(int i=0;i<maze.getMaze().length;i++)
 				      for(int j=0;j<maze.getMaze()[i].length;j++){
 				          int x=j*w;
 				          int y=i*h;
-				          if(maze.getMaze()[i][j]!=0)
+				          if(crossSection[i][j]!=0)
 				              e.gc.fillRectangle(x,y,w,h);
 				      }
 			}
@@ -73,11 +73,4 @@ public class MazeDisplay extends Canvas {
 		this.currPos = currPos;
 	}
 
-	public Solution<Position> getSolution() {
-		return solution;
-	}
-
-	public void setSolution(Solution<Position> solution) {
-		this.solution = solution;
-	}
 }
