@@ -16,13 +16,13 @@ import algorithms.search.Solution;
  * @author Itamar Mizrahi&Chen Erlich
  *
  */
-public class MazeDisplayC extends Canvas {
+public class MazeDisplay extends Canvas {
 	
 	private Maze3d maze;
 	private Position currPos;
 	private Solution<Position> solution;
 	
-	public MazeDisplayC(Shell parent, int style) {
+	public MazeDisplay(Shell parent, int style) {
 		super(parent, style);
 		this.currPos = new Position(0,0,0);
 		

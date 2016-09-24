@@ -3,15 +3,16 @@ package view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.Observable;
+
+import algorithms.mazeGenerators.Maze3d;
 
 /***
  * CLI in MVP architecture.
  * @author Itamar Mizrahi&Chen Erlich
  *
  */
-public class CLI extends Observable {
+public class CLI extends Observable implements View  {
 	private BufferedReader in;
 	private PrintWriter out;	
 	
@@ -49,6 +50,24 @@ public class CLI extends Observable {
 			}			
 		});
 		thread.start();		
+	}
+
+	@Override
+	public void notifyMazeIsReady(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void displayMaze(Maze3d maze) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void displayMessage(String msg) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

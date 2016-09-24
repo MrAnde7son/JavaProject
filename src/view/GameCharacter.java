@@ -13,7 +13,7 @@ public class GameCharacter {
 	private Image img;
 	
 	public GameCharacter() {
-		this.img = new Image(null, "resources/Images/<someimage.jpg>");
+		this.img = new Image(null, "resources/images/putin_head.png");
 	}
 
 	public Position getPos() {

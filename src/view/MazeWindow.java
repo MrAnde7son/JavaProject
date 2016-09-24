@@ -19,9 +19,9 @@ import algorithms.mazeGenerators.Maze3d;
  * @author Itamar Mizrahi&Chen Erlich
  *
  */
-public class MazeWindowC extends BasicWindow implements View {
+public class MazeWindow extends BasicWindow implements View {
 
-	private MazeDisplayC mazeDisplay;
+	private MazeDisplay mazeDisplay;
 	private SelectionListener generateListener, saveListener, loadListener, solveListener, exitListener;
 	
 	@Override
@@ -85,7 +85,7 @@ public class MazeWindowC extends BasicWindow implements View {
 			}
 		});
 		
-		mazeDisplay = new MazeDisplayC(shell, SWT.NONE);			
+		mazeDisplay = new MazeDisplay(shell, SWT.NONE);			
 		shell.open();		
 	}
 
