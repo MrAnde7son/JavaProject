@@ -15,13 +15,13 @@ import org.eclipse.swt.widgets.Text;
 import algorithms.mazeGenerators.Maze3d;
 
 /***
- * MazeWindow
+ * MazeWindowC
  * @author Itamar&Chen
  *
  */
-public class MazeWindow extends BasicWindow implements View {
+public class MazeWindowC extends BasicWindow implements View {
 
-	private MazeDisplay mazeDisplay;
+	private MazeDisplayC mazeDisplay;
 	private SelectionListener generateListener, saveListener, loadListener, solveListener, exitListener;
 	
 	@Override
@@ -85,7 +85,7 @@ public class MazeWindow extends BasicWindow implements View {
 			}
 		});
 		
-		mazeDisplay = new MazeDisplay(shell, SWT.NONE);			
+		mazeDisplay = new MazeDisplayC(shell, SWT.NONE);			
 		shell.open();		
 	}
 

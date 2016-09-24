@@ -2,7 +2,7 @@ package view;
 
 import algorithms.mazeGenerators.Maze3d;
 
-public class GUI implements View {
+public class GUIC implements View {
 
 	public void notifyMazeIsReady(String name) {
 		// TODO Auto-generated method stub

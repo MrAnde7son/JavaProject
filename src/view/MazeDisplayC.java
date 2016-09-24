@@ -12,17 +12,17 @@ import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 
 /***
- * MazeDisplay
+ * MazeDisplayC
  * @author Itamar&Chen
  *
  */
-public class MazeDisplay extends Canvas {
+public class MazeDisplayC extends Canvas {
 	
 	private Maze3d maze;
 	private Position currPos;
 	private Solution<Position> solution;
 	
-	public MazeDisplay(Shell parent, int style) {
+	public MazeDisplayC(Shell parent, int style) {
 		super(parent, style);
 		this.currPos = new Position(0,0,0);
 		
