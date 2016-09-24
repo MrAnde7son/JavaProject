@@ -26,6 +26,8 @@ public class CommandsManager {
 		commands.put("generate_maze", new GenerateMazeCommand());
 		commands.put("display", new DisplayMazeCommand());
 		commands.put("maze_ready", new MazeReadyCommand());
+		commands.put("solve_maze", new SolveMazeCommand());
+		commands.put("display_solution", new DisplaySolutionCommand());
 		
 		return commands;
 	}
@@ -33,11 +35,12 @@ public class CommandsManager {
 	class GenerateMazeCommand implements Command {
 
 		@Override
-		public void doCommand(String[] args) {
-			String name = args[0];
-			int x = Integer.parseInt(args[1]);
-			int y = Integer.parseInt(args[2]);
-			int z = Integer.parseInt(args[3]);
+		public void doCommand(String args) {
+			String[] params = args.split(" ");
+			String name = params[0];
+			int x = Integer.parseInt(params[1]);
+			int y = Integer.parseInt(params[2]);
+			int z = Integer.parseInt(params[3]);
 			model.generateMaze(name, x, y, z);
 		}		
 	}
@@ -45,8 +48,9 @@ public class CommandsManager {
 	class DisplayMazeCommand implements Command {
 
 		@Override
-		public void doCommand(String[] args) {
-			String name = args[0];
+		public void doCommand(String args) {
+			String[] params = args.split(" ");
+			String name = params[0];
 			Maze3d maze = model.getMaze(name);
 			view.displayMaze(maze);
 		}		
@@ -55,11 +59,29 @@ public class CommandsManager {
 	class MazeReadyCommand implements Command {
 
 		@Override
-		public void doCommand(String[] args) {
-			String name = args[0];			
+		public void doCommand(String args) {
+			String[] params = args.split(" ");
+			String name = params[0];			
 			view.notifyMazeIsReady(name);
 		}		
 	}
 	
+	class SolveMazeCommand implements Command {
+		@Override
+		public void doCommand(String args) {
+			String[] params = args.split(" ");
+			model.solve(params[0]);
+	}
+	}
 	
+	class DisplaySolutionCommand implements Command {
+
+		@Override
+		public void doCommand(String args) {
+			String[] params = args.split(" ");
+			model.getSolution(params[0]);
+			
+		}
+	}
 }
+
