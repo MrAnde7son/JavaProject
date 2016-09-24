@@ -23,12 +23,7 @@ import org.eclipse.swt.widgets.Shell;
 import properties.PropertiesManager;
 
 /**
- * class StartWindow
- * implements Runnable
- * Data member Display display, Shell shell 
- * This is the first window, in this window we will choose our favorite UI
- * if it is GUICC we will choose with or without up/down hint
- * if it is CLI we will see in the console
+ * class StartWindow, implements Runnable
  * @author Itamar Mizrahi & Chen Erlich
  */
 public class StartWindow implements Runnable {
@@ -36,29 +31,21 @@ public class StartWindow implements Runnable {
 	private Display display;
 	private Shell shell;
 
-	/**
-	 * Create the new window 
-	 * create the new label of GUICC and CLI and allowed them to do SWT.PUSH
-	 * GUIC - ask if  hse up/down hint
-	 */
 	private void initWidgets() {
 		this.shell = new Shell(display, SWT.TITLE | SWT.CLOSE);
 		this.shell.setText("Start");
 		
 		this.shell.setLayout(new GridLayout(2, false));
-		this.shell.setSize(400, 750);
-//		this.shell.setBackgroundImage(new Image(null, "resources/images/background.png"));		
+		this.shell.setSize(400, 750);		
 		this.shell.setBackgroundImage(new Image(null, "resources/images/back.png"));	
 		this.shell.setBackgroundMode(SWT.INHERIT_DEFAULT);
-		
-		// Open in center of screen
+
 		Rectangle bounds = display.getPrimaryMonitor().getBounds();
 		Rectangle rect = shell.getBounds();
 		int x = bounds.x + (bounds.width - rect.width) / 2;
 		int y = bounds.y + (bounds.height - rect.height) / 2;
 		shell.setLocation(x, y);
 		
-		// handle with the RED X
 		shell.addListener(SWT.Close, new Listener() {
 			
 			@Override
@@ -67,7 +54,6 @@ public class StartWindow implements Runnable {
 			}
 		});
 
-		//Empty spaces
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);

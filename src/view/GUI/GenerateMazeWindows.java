@@ -22,19 +22,10 @@ import view.MyView;
  */
 public class GenerateMazeWindows extends DialogWindow {
 	
-	/**
-	 * Constructor
-	 * @param view, MyView
-	 */
 	public GenerateMazeWindows(MyView view) {
 		this.view = view;
 	}
 	
-	/**
-	 * this it the window of the generate maze.
-	 * we will enter the floors, cols, rows and the name of the maze.
-	 * then we will push the button to generate the maze.
-	 */
 	@Override
 	protected void initWidgets() {
 		this.shell = new Shell(display, SWT.TITLE | SWT.CLOSE);
@@ -44,7 +35,6 @@ public class GenerateMazeWindows extends DialogWindow {
 		this.shell.setBackgroundImage(new Image(null, "resources/images/genWinBack.png"));
 		this.shell.setBackgroundMode(SWT.INHERIT_DEFAULT);
 		
-		// Open in center of screen
 		Rectangle bounds = display.getPrimaryMonitor().getBounds();
 		Rectangle rect = shell.getBounds();
 		int x = bounds.x + (bounds.width - rect.width) / 2;
@@ -84,10 +74,6 @@ public class GenerateMazeWindows extends DialogWindow {
 		
 		buttonStartGame.addSelectionListener(new SelectionListener() {
 			
-			/**
-			 * take all the floors, cols, rows and make them from string to int with the parsint.
-			 * @param SelectionEvent
-			 */
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				int floors = 0;

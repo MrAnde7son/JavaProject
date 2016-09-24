@@ -16,14 +16,14 @@ public abstract class DialogWindow {
 	protected MyView view;
 	
 	/**
-	 * initWidgets
-	 * abstract
+	 * Intialize widgests.
+	 * 
 	 */
 	protected abstract void initWidgets();
 	
 	/**
-	 * start the window
-	 * @param display, Display
+	 * starts the window
+	 * @param Display
 	 */
 	public void start(Display display) {
 		this.display = display;

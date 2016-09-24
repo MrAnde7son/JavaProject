@@ -8,19 +8,12 @@ import javax.xml.bind.Unmarshaller;
 
 /**
  * PropertiesManager
- * Existing package in java.xml.bind that create xml file
- * Data member Properties
- * @author Gal Basre & Ido Dror
+ * @author Itamar&Chen
  */
 public class PropertiesManager {
 	
-	private static Properties properties = null;
+	private static Properties properties;
 	
-	/**
-	 *  readXML from file
-	 *  read all the properties fron the xml
-	 * @return Properties
-	 */
 	public static Properties readXML() {
 		File file = null;
 		JAXBContext jaxbContext = null;
@@ -36,19 +29,15 @@ public class PropertiesManager {
 		return properties;
 	}
 
-	/**
-	 * writeXml
-	 * write the the xml file 
-	 */
 	public static void writeXml(String userInterface, String GUIUpDownHints) {
 		properties = new Properties();
 		
-		properties.setMaxThreads(12);
+		properties.setNumOfThreads(12);
 		properties.setGenerationAlgorithm("GrowingTree");
 		properties.setSearchingAlgorthm("BFS");
 		properties.setViewType(userInterface);
 		properties.setZipFilePath("resources/data/mymap.zip");
-		properties.setGUIUpDownHints(GUIUpDownHints);
+		properties.setHint(GUIUpDownHints);
 		
 		File file = null;
 		JAXBContext jaxbContext = null;
@@ -58,10 +47,8 @@ public class PropertiesManager {
 			jaxbContext = JAXBContext.newInstance(properties.getClass());
 			marshaller = jaxbContext.createMarshaller();
 			
-			// output printed
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			marshaller.marshal(properties, file);
-			//marshaller.marshal(properties, System.out);
 			
 		} catch (JAXBException e) {
 			e.printStackTrace();
@@ -69,10 +56,6 @@ public class PropertiesManager {
 		
 	}
 	
-	/**
-	 * getProperties
-	 * @return Properties
-	 */
 	public static Properties getProperties() {
 		return properties;
 	}

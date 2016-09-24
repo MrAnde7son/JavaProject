@@ -13,11 +13,11 @@ public class Properties implements Serializable {
 	private String name;
 	private String generationAlgorithm;
 	private int x,y,z;
-	private String searchingAlgorthm;
+	private String searchingAlgorithm;
 	private String viewType;
-	private int maxThreads;
+	private int numOfThreads;
 	private String zipFilePath;
-	private String GUIUpDownHints;
+	private String hint;
 	
 	public String getName() {
 		return name;
@@ -49,11 +49,11 @@ public class Properties implements Serializable {
 	public void setZ(int z) {
 		this.z = z;
 	}
-	public String getSearchingAlgorthm() {
-		return searchingAlgorthm;
+	public String getSearchingAlgorithm() {
+		return searchingAlgorithm;
 	}
-	public void setSearchingAlgorthm(String searchingAlgorthm) {
-		this.searchingAlgorthm = searchingAlgorthm;
+	public void setSearchingAlgorthm(String searchingAlgorithm) {
+		this.searchingAlgorithm = searchingAlgorithm;
 	}
 	public String getViewType() {
 		return viewType;
@@ -61,11 +61,11 @@ public class Properties implements Serializable {
 	public void setViewType(String viewType) {
 		this.viewType = viewType;
 	}
-	public int getMaxThreads() {
-		return maxThreads;
+	public int getNumOfThreads() {
+		return numOfThreads;
 	}
-	public void setMaxThreads(int maxThreads) {
-		this.maxThreads = maxThreads;
+	public void setNumOfThreads(int numOfThreads) {
+		this.numOfThreads = numOfThreads;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -76,11 +76,11 @@ public class Properties implements Serializable {
 	public void setZipFilePath(String zipFilePath) {
 		this.zipFilePath = zipFilePath;
 	}
-	public String getGUIUpDownHints() {
-		return GUIUpDownHints;
+	public String getHint() {
+		return hint;
 	}
-	public void setGUIUpDownHints(String gUIUpDownHints) {
-		GUIUpDownHints = gUIUpDownHints;
+	public void setHint(String hint) {
+		this.hint = hint;
 	}
 
 }

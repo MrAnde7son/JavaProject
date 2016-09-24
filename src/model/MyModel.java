@@ -59,7 +59,7 @@ public class MyModel extends Observable implements Model {
 			@Override
 			public Maze3d call() throws Exception {
 				Maze3dGenerator generator;
-				if(properties.getGenerateMazeAlgorithm().equals("GrowingTree"))
+				if(properties.getGenerationAlgorithm().equals("GrowingTree"))
 					generator = new GrowingTreeGenerator();
 				else
 					generator = new SimpleMaze3dGenerator();
@@ -102,9 +102,9 @@ public class MyModel extends Observable implements Model {
 			@Override
 			public void run() {
 				Searcher<Position> searcher;
-				if(properties.getSolveMazeAlgorithm().equals("BFS"))
+				if(properties.getSearchingAlgorithm().equals("BFS"))
 					searcher = new BFSSearcher<Position>();
-				else if(properties.getSolveMazeAlgorithm().equals("DFS"))
+				else if(properties.getSearchingAlgorithm().equals("DFS"))
 					searcher = new DFSSearcher<Position>();
 				else{
 					notifyObservers("Invalid searching algorithms");

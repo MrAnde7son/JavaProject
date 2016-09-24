@@ -17,22 +17,13 @@ import org.eclipse.swt.widgets.Shell;
 import view.MyView;
 
 /**
- * class LoadWindow - this is the load window
- * after push the button "load from file" we will choose
- * from our older save maze
- * extends DialogWindow 
- * Data memeber ArrayList<String>
+ * LoadWindow
  * @author Itamar Mizrahi & Chen Erlich
  */
 public class LoadWindow extends DialogWindow {
 	
 	private ArrayList<String> listOfFiles;
 
-	/**
-	 * constructor
-	 * @param view, MyView
-	 * @param listFiles, String
-	 */
 	public LoadWindow(MyView view,String listFiles) {
 		this.view = view;
 		String[] splitedString = listFiles.split("\n");
@@ -42,11 +33,6 @@ public class LoadWindow extends DialogWindow {
 				this.listOfFiles.add(splitedString[i]);
 	}
 	
-	/**
-	 * This method will create the push button "Load from file"
-	 *then we will pick our maze and push the load maze button
-	 *that will open our saved maze 
-	 */
 	@Override
 	protected void initWidgets() {
 		this.shell = new Shell(display, SWT.TITLE | SWT.CLOSE);
@@ -56,7 +42,6 @@ public class LoadWindow extends DialogWindow {
 		this.shell.setBackgroundImage(new Image(null, "resources/images/backgroundSmall.png"));
 		this.shell.setBackgroundMode(SWT.INHERIT_DEFAULT);
 		
-		// Open in center of screen
 		Rectangle bounds = display.getPrimaryMonitor().getBounds();
 		Rectangle rect = shell.getBounds();
 		int x = bounds.x + (bounds.width - rect.width) / 2;

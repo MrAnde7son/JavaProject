@@ -25,22 +25,18 @@ import algorithms.search.Solution;
 import view.MyView;
 
 /**
- * class Maze3dWindow - this class will open the window of all the category we can select
- * extends BaseWindow
- * Data member boolean giveMeAHint, Maze3d  myMaze, String mazeName, String[] itemsFromDatabase
- * Data member MazeDisplayC mazeDisplay, List<Point> canMoveUp, List<Point> canMoveDown, int[][] crossSection
- * Data member int[][] upperCrossSection, int[][] lowerCrossSection, String WINNER
+ * Maze3dWindow
  * @author Itamar Mizrahi & Chen Erlich
  */
 public class Maze3dWindow extends BaseWindow {
 	
 	private boolean giveMeAHint;
 	private Maze3d myMaze;
-	private String mazeName;
+	private String name;
 	private String[] itemsFromDatabase;
 	private MazeDisplay mazeDisplay;
-	private List<Point> canMoveUp;
-	private List<Point> canMoveDown;
+	private List<Point> up;
+	private List<Point> down;
 	private int[][] crossSection;
 	private int[][] upperCrossSection;
 	private int[][] lowerCrossSection;
@@ -55,21 +51,16 @@ public class Maze3dWindow extends BaseWindow {
 		this.view = view;
 		this.giveMeAHint = false;
 		this.myMaze = null;
-		this.mazeName = null;
+		this.name = null;
 		this.itemsFromDatabase = null;
-		this.canMoveUp = null;
-		this.canMoveDown = null;
+		this.up = null;
+		this.down = null;
 		this.crossSection = null;
 		this.upperCrossSection = null;
 		this.lowerCrossSection = null;
 		this.showSolutionByAnimation = null;
 	}
 
-	/**
-	 * initWidgets
-	 * New grid layout, create a new composite and all the button
-	 * 
-	 */
 	@Override
 	protected void initWidgets() {
 		GridLayout grid = new GridLayout(2, false);
@@ -78,7 +69,6 @@ public class Maze3dWindow extends BaseWindow {
 		this.shell.setBackgroundMode(SWT.INHERIT_DEFAULT);
 		this.shell.setBackgroundImage(new Image(null, "resources/images/backgroundBig.jpg"));
 		
-		// Open in center of screen
 		Rectangle bounds = display.getPrimaryMonitor().getBounds();
 		Rectangle rect = shell.getBounds();
 		int x = bounds.x + (bounds.width - rect.width) / 2;
@@ -159,9 +149,9 @@ public class Maze3dWindow extends BaseWindow {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				if (mazeName == null)
+				if (name == null)
 					view.printMessage("Generate/Load a maze first!");
-				else executeCommand("solve " + mazeName + " " + cmbSolveAlgo.getText());
+				else executeCommand("solve " + name + " " + cmbSolveAlgo.getText());
 			}
 
 			@Override
@@ -214,7 +204,7 @@ public class Maze3dWindow extends BaseWindow {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				executeCommand("save_maze " + mazeName + " " + mazeName + ".maz");
+				executeCommand("save_maze " + name + " " + name + ".maz");
 			}
 			
 			@Override
@@ -264,15 +254,15 @@ public class Maze3dWindow extends BaseWindow {
 	
 	/**
 	 * This method check if we have maze name
-	 * else we will sent with executeCommand the "hint " + mazeName + " BFS" 
+	 * else we will sent with executeCommand the "hint " + name + " BFS" 
 	 * to call the hint command
 	 */
 	protected void createHint() {
-		if (mazeName == null)
+		if (name == null)
 			view.printMessage("Generate/Load a maze first!");
 		else {
 			giveMeAHint = true;
-			executeCommand("hint " + mazeName + " BFS");
+			executeCommand("hint " + name + " BFS");
 		}
 	}
 
@@ -283,23 +273,23 @@ public class Maze3dWindow extends BaseWindow {
 	 * @param String, maze name  
 	 */
 	@Override
-	public void mazeReady(Maze3d maze, String mazeName) {
-		this.mazeName = mazeName;
+	public void mazeReady(Maze3d maze, String name) {
+		this.name = name;
 		this.myMaze = maze;
 		this.mazeDisplay.setCharacterPosition(this.myMaze.getStartPosition());
 		this.crossSection = this.myMaze.getCrossSectionByZ(0);
 		setIfCanGoUpOrDown(0);
-		this.mazeDisplay.setCrossSection(this.crossSection, this.canMoveUp, this.canMoveDown);
+		this.mazeDisplay.setCrossSection(this.crossSection, this.up, this.down);
 		this.mazeDisplay.setGoalPosition(this.myMaze.getGoalPosition());
-		this.mazeDisplay.setMazeName(this.mazeName);
+		this.mazeDisplay.setName(this.name);
 	}
 
 	/**
 	 * Get the maze name
-	 * @return String, mazeName
+	 * @return String, name
 	 */
-	public String getMazeName() {
-		return mazeName;
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -374,38 +364,28 @@ public class Maze3dWindow extends BaseWindow {
 	public void move(Position pos) {
 		this.crossSection = this.myMaze.getCrossSectionByZ(pos.getZ());
 		setIfCanGoUpOrDown(pos.getZ());
-		this.mazeDisplay.setCrossSection(this.crossSection, this.canMoveUp, this.canMoveDown);
-		this.mazeDisplay.setWhichFloorAmI(pos.getZ());
+		this.mazeDisplay.setCrossSection(this.crossSection, this.up, this.down);
+		this.mazeDisplay.setCurrentFloor(pos.getZ());
 		this.mazeDisplay.moveTheCharacter(pos);
 	}
 
-	/**
-	 * This method display the winner and after that ww would like to display another
-	 * winner so we will set winner as false 
-	 */
 	@Override
 	public void winner() {
 		this.crossSection = this.myMaze.getCrossSectionByZ(this.myMaze.getGoalPosition().getZ());
-		this.mazeDisplay.setWhichFloorAmI(this.myMaze.getGoalPosition().getZ());
+		this.mazeDisplay.setCurrentFloor(this.myMaze.getGoalPosition().getZ());
 		setIfCanGoUpOrDown(this.myMaze.getGoalPosition().getZ());
-		this.mazeDisplay.setCrossSection(this.crossSection, this.canMoveUp, this.canMoveDown);
+		this.mazeDisplay.setCrossSection(this.crossSection, this.up, this.down);
 		this.mazeDisplay.setWinner(true);
 		this.displayMessage(this.WINNER);
 		this.mazeDisplay.setEnabled(false);
 		this.mazeDisplay.setWinner(false);
 	}
 	
-	/**
-	 * check if we can go up or down in the floor the GameCharacter is
-	 * we have list of can move up and a list of can move down
-	 * if the up/down possible is true we will add it to the list
-	 * @param floor, int
-	 */
 	private void setIfCanGoUpOrDown(int floor) {
 		boolean upPossible = false;
 		boolean downPossible = false;
-		this.canMoveUp = new ArrayList<Point>();
-		this.canMoveDown = new ArrayList<Point>();
+		this.up = new ArrayList<Point>();
+		this.down = new ArrayList<Point>();
 		
 		if (floor < this.myMaze.getMaze().length - 1) {
 			this.upperCrossSection = this.myMaze.getCrossSectionByZ(floor + 1);
@@ -426,37 +406,21 @@ public class Maze3dWindow extends BaseWindow {
 		}
 	}
 
-	/**
-	 * This method check if we can go down with the character
-	 * @param y, the rows
-	 * @param x, the cols
-	 */
 	private void checkForDown(int y, int x) {
 		if (this.lowerCrossSection[y][x] == this.crossSection[y][x] && this.crossSection[y][x] == Maze3d.FREE)
-			this.canMoveDown.add(new Point(y, x));
+			this.down.add(new Point(y, x));
 	}
 
-	/**
-	 * This method check if we can go up with the character
-	 * @param y, the rows
-	 * @param x, the cols
-	 */
 	private void checkForUp(int y, int x) {
 		if (this.upperCrossSection[y][x] == this.crossSection[y][x] && this.crossSection[y][x] == Maze3d.FREE)
-			this.canMoveUp.add(new Point(y, x));
+			this.up.add(new Point(y, x));
 	}
 
-	/**
-	 * get the databaseValues after split with ,
-	 */
 	@Override
 	public void databaseValues(String databaseValues) {
 		this.itemsFromDatabase = databaseValues.split(",");
 	}
 
-	/**
-	 *create new load Window and open it
-	 */
 	@Override
 	public void dirListReady(String[] dirList) {
 		LoadWindow winLoad = new LoadWindow(view, dirList[0]);

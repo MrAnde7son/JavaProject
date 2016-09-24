@@ -17,19 +17,13 @@ import properties.PropertiesManager;
 import view.MyView;
 
 /**
- * MazeDisplay
- * extends Canvas
- * this class will paint the maze
- * Data Member String mazeName,int whichFloorAmI, int [][] crossSection, GameCharacter character
- * Data Member Image imgGoal, Image imgWinner,Image imgUp, Image imgDown,Image imgUpDown
- * Data Member Image imgWall, boolean drawMeAHint, Position hintPosition,  boolean winner,
- * Data Member Position goalPosition, List<Point> downHint,List<Point> upHint
+ * MazeDisplay, implements Canvas
  * @author Itamar Mizrahi & Chen Erlich
  */
 public class MazeDisplay extends Canvas {
 	
-	private String mazeName;
-	private int whichFloorAmI;
+	private String name;
+	private int currentFloor;
 	private int[][] crossSection = { {0}, {0} };
 	private GameCharacter character;
 	private Image imgGoal;
@@ -45,21 +39,14 @@ public class MazeDisplay extends Canvas {
 	private List<Point> downHint;
 	private List<Point> upHint;
 
-	/**
-	 * Constructor 
-	 * @param Composite parent, int style, MyView view
-	 * draw the maze
-	 */
 	public MazeDisplay(Composite parent, int style, final MyView view) {
 		super(parent, style);
 		
-		this.mazeName = null;
-		this.whichFloorAmI = 0;
+		this.name = null;
+		this.currentFloor = 0;
 		this.character = new GameCharacter();
 		this.character.setPos(new Position(-1, -1, -1));
-//		this.imgGoal = new Image(null,"resources/images/apple.png");
 		this.imgGoal = new Image(null,"resources/images/2.gif");
-//		this.imgWinner = new Image(null,"resources/images/winner.gif");
 		this.imgWinner = new Image(null,"resources/images/putin_on_tiger.jpg");
 		this.imgUp = new Image(null, "resources/images/up.gif");
 		this.imgDown = new Image(null, "resources/images/down.gif");
@@ -92,9 +79,8 @@ public class MazeDisplay extends Canvas {
 						x = j * cellWidth;
 						y = i * cellHeight;
 						if (crossSection[i][j] != 0)
-							//e.gc.fillRectangle(x, y, cellWidth, cellHeight);
 							e.gc.drawImage(imgWall, 0, 0, imgWall.getBounds().width, imgWall.getBounds().height, x, y, cellWidth, cellHeight);
-						if (PropertiesManager.getProperties().getGUIUpDownHints().equals("true"))
+						if (PropertiesManager.getProperties().getHint().equals("true"))
 							paintUpDownHints(e, i, j, cellWidth, cellHeight);
 					}
 				}
@@ -106,7 +92,7 @@ public class MazeDisplay extends Canvas {
 				
 				if (!winner) {
 					character.draw(cellWidth, cellHeight, e.gc);
-					if (whichFloorAmI == goalPosition.getZ())
+					if (currentFloor == goalPosition.getZ())
 						e.gc.drawImage(imgGoal, 0, 0, imgGoal.getBounds().width, imgGoal.getBounds().height, cellWidth * goalPosition.getX(), cellHeight * goalPosition.getY(), cellWidth, cellHeight);
 				} else e.gc.drawImage(imgWinner, 0, 0, imgWinner.getBounds().width, imgWinner.getBounds().height, cellWidth * goalPosition.getX(), cellHeight * goalPosition.getY(), cellWidth, cellHeight);
 				
@@ -126,12 +112,6 @@ public class MazeDisplay extends Canvas {
 			}
 		});
 		
-		/**
-		 * This method will listene to the key from io and if it isn't null will 
-		 * execute the command and than draw again
-		 * leagel command : ARROW_RIGHT, ARROW_LEFT, ARROW_UP, ARROW_DOWN, PAGE_DOWN, PAGE_UP
-		 * deafult None
-		 */
 		this.addKeyListener(new KeyListener() {
 			
 			@Override
@@ -142,22 +122,22 @@ public class MazeDisplay extends Canvas {
 				String command = null;
 				switch (e.keyCode) {
 				case SWT.ARROW_RIGHT:
-					command = "r " + mazeName;
+					command = "r " + name;
 					break;
 				case SWT.ARROW_LEFT:
-					command = "l " + mazeName;
+					command = "l " + name;
 					break;
 				case SWT.ARROW_UP:
-					command = "b " + mazeName;
+					command = "b " + name;
 					break;
 				case SWT.ARROW_DOWN:
-					command = "f " + mazeName;
+					command = "f " + name;
 					break;
 				case SWT.PAGE_DOWN:
-					command = "d " + mazeName;
+					command = "d " + name;
 					break;
 				case SWT.PAGE_UP:
-					command = "u " + mazeName;
+					command = "u " + name;
 					break;
 				default: break;
 				}
@@ -169,30 +149,15 @@ public class MazeDisplay extends Canvas {
 		});
 
 	}
-	
-	/**
-	 * setWinner
-	 * @param winner, boolean
-	 */
 
 	public void setWinner(boolean winner) {
 		this.winner = winner;
 	}
 
-	/**
-	 *This method tell us where are we in the maze
-	 * @param whichFloorAmI, int
-	 */
-	public void setWhichFloorAmI(int whichFloorAmI) {
-		this.whichFloorAmI = whichFloorAmI;
+	public void setCurrentFloor(int currentFloor) {
+		this.currentFloor = currentFloor;
 	}
 
-	/**
-	 * paint the maze in crossSection [][]
-	 * @param crossSection, crossSection
-	 * @param upHint, List<Point>
-	 * @param downHint, List<Point>
-	 */
 	public void setCrossSection(int[][] crossSection, List<Point> upHint, List<Point> downHint) {
 		this.crossSection = crossSection;
 		this.upHint = upHint;
@@ -200,52 +165,31 @@ public class MazeDisplay extends Canvas {
 		redrawMe();
 	}
 
-	/**
-	 * set the character position then draw the maze
-	 * @param pos, the position 
-	 */
+	
 	public void setCharacterPosition(Position pos) {
 		this.character.setPos(pos);
 		redrawMe();
 	}
 
-	/**
-	 * move the character
-	 * @param pos, the position
-	 */
 	public void moveTheCharacter(Position pos) {
 		this.character.setPos(pos);
 		redrawMe();
 	}
-	/**
-	 * setMazeName 
-	 * @param String mazeName
-	 */
-	public void setMazeName(String mazeName) {
-		this.mazeName = mazeName;
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
-	/**
-	 * set goal position
-	 * @param Position goalPosition
-	 */
 	public void setGoalPosition(Position goalPosition) {
 		this.goalPosition = goalPosition;
 	}
 	
-	/**
-	 *This method draw a hint to the player
-	 * @param PositionhintPos
-	 */
 	public void drawHint(Position hintPos) {
 		this.drawMeAHint = true;
 		this.hintPosition = hintPos;
 		redrawMe();
 	}
 	
-	/**
-	 *This method readraw the canvas in runnable sync
-	 */
 	private void redrawMe() {
 		getDisplay().syncExec(new Runnable() {
 
