@@ -1,8 +1,10 @@
 package view;
 
+import java.util.Observable;
+
 import algorithms.mazeGenerators.Maze3d;
 
-public class GUI implements View {
+public class GUI extends Observable implements View {
 
 	public void notifyMazeIsReady(String name) {
 		// TODO Auto-generated method stub

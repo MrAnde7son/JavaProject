@@ -20,7 +20,7 @@ public class MyView extends Observable implements View, Observer {
 	public MyView(BufferedReader in, PrintWriter out) {
 		this.in = in;
 		this.out = out;
-				
+		
 		cli = new CLI(in, out);
 		cli.addObserver(this);
 	}	
@@ -55,6 +55,11 @@ public class MyView extends Observable implements View, Observer {
 			setChanged();
 			notifyObservers(arg);
 		}
+	}
+	
+	public void sendCommand(String arg) {
+		setChanged();
+		notifyObservers(arg);
 	}
 
 }
