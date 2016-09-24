@@ -40,7 +40,7 @@ public class Presenter implements Observer {
 			String commandArgs = null;
 			if (arr.length > 1) {
 				commandArgs = commandLine.substring(
-						commandLine.indexOf(" ") + 1);						
+						commandLine.indexOf(" ") + 1);							
 			}
 			Command cmd = commands.get(command);
 			cmd.doCommand(commandArgs);	
