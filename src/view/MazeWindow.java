@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Text;
 import algorithms.mazeGenerators.Maze3d;
 
 /***
- * MazeWindowC
+ * MazeWindow
  * @author Itamar Mizrahi&Chen Erlich
  *
  */

@@ -12,7 +12,7 @@ import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 
 /***
- * MazeDisplayC
+ * MazeDisplay
  * @author Itamar Mizrahi&Chen Erlich
  *
  */
