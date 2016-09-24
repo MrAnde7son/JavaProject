@@ -37,14 +37,13 @@ public class Presenter implements Observer {
 			view.displayMessage("Command doesn't exist");			
 		}
 		else {
-			String[] args = null;
+			String commandArgs = null;
 			if (arr.length > 1) {
-				String commandArgs = commandLine.substring(
-						commandLine.indexOf(" ") + 1);
-				args = commandArgs.split(" ");							
+				commandArgs = commandLine.substring(
+						commandLine.indexOf(" ") + 1);						
 			}
 			Command cmd = commands.get(command);
-			cmd.doCommand(args);	
+			cmd.doCommand(commandArgs);	
 		}
 	}
 }
