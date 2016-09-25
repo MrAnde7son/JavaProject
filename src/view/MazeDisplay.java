@@ -13,6 +13,10 @@ import algorithms.search.Solution;
 
 /***
  * MazeDisplay
+ * @param maze Maze3d Type
+ * @param currPos Position Type
+ * @param crossSection int[][] Type
+ * 
  * @author Itamar Mizrahi&Chen Erlich
  *
  */

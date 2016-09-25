@@ -47,26 +47,6 @@ public class Properties implements Serializable {
 	public void setZ(int z) {
 		this.z = z;
 	}
-	public String getSearchingAlgorthm() {
-		return searchingAlgorthm;
-	}
-	public void setSearchingAlgorthm(String searchingAlgorthm) {
-		this.searchingAlgorthm = searchingAlgorthm;
-	}
-	public String getViewType() {
-		return viewType;
-	}
-	public void setViewType(String viewType) {
-		this.viewType = viewType;
-	}
-	public int getMaxThreads() {
-		return maxThreads;
-	}
-	public void setMaxThreads(int maxThreads) {
-		this.maxThreads = maxThreads;
-	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+
 
 }

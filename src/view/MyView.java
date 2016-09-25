@@ -8,7 +8,7 @@ import algorithms.mazeGenerators.Maze3d;
 
 /***
  * Implementation of View in MVP for Maze3d.
- * @author Itamar&Chen
+ * @author Itamar & Chen
  *
  */
 public class MyView extends Observable implements View, Observer {
@@ -39,7 +39,6 @@ public class MyView extends Observable implements View, Observer {
 
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
 		cli.start();
 	}
 

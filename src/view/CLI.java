@@ -70,4 +70,19 @@ public class CLI extends Observable implements View  {
 		
 	}
 	
+//	private void printMenu()
+//	{
+//		this.view.printMessage("*****MENU*****");
+//		this.view.printMessage("(0) <u/d/f/b/r/l> <maze_name>");
+//		this.view.printMessage("(1) dir <path>");
+//		this.view.printMessage("(2) generate_maze <name> <other params>");
+//		this.view.printMessage("(3) display <name>");
+//		this.view.printMessage("(4) display_cross_section <index> <{X,Y,Z}> <name>");
+//		this.view.printMessage("(5) save_maze <name> <file name>");
+//		this.view.printMessage("(6) load_maze <file name> <name>");
+//		this.view.printMessage("(7) solve <name> <algorithm>");
+//		this.view.printMessage("(8) display_solution <name>");
+//		this.view.printMessage("(9) exit");
+//	}
+	
 }

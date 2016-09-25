@@ -8,6 +8,9 @@ import view.View;
 
 /***
  * Handles Maze3d commands in MVP architecture.
+ * Gets any relevant command, parses the string and executes the right model method to handle it.
+ * @param model Model Type
+ * @param view View Type
  * @author Itamar&Chen
  *
  */
