@@ -1,8 +1,8 @@
-/view
-/algorithms
-/controller
-/io
-/model
-/presenter
-/properties
-/boot
+/algorithms/
+/boot/
+/controller/
+/io/
+/model/
+/presenter/
+/properties/
+/view/
