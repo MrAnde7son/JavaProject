@@ -1,18 +1,52 @@
 package properties;
 
+import java.beans.XMLDecoder;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 /**
- * PropertiesManager
+ * PropertiesManager using Singleton Design Pattern.
  * @author Itamar&Chen
  */
 public class PropertiesManager {
 	
+	private static PropertiesManager instance;
+	
 	private static Properties properties;
+	
+	public Properties getProperties() {
+		return properties;
+	}
+	
+	/***
+	 * Private constructor to allow creation of one instance only.
+	 */
+	private PropertiesManager() 
+	{
+		try {
+			XMLDecoder decoder = new XMLDecoder(new FileInputStream("resources/properties.xml"));
+			properties = (Properties)decoder.readObject();
+			decoder.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/***
+	 * returns the created instance of type PropertiesManager
+	 * @return
+	 */
+	public static PropertiesManager getInstance() {
+		if (instance == null) 
+			instance = new PropertiesManager();
+		return instance;
+	}
 	
 	public static Properties readXML() {
 		File file = null;
@@ -29,15 +63,15 @@ public class PropertiesManager {
 		return properties;
 	}
 
-	public static void writeXml(String userInterface, String GUIUpDownHints) {
+	public static void writeXml(String ui, String hint) {
 		properties = new Properties();
 		
-		properties.setNumOfThreads(12);
+		properties.setNumOfThreads(8);
 		properties.setGenerationAlgorithm("GrowingTree");
 		properties.setSearchingAlgorthm("BFS");
-		properties.setViewType(userInterface);
-		properties.setZipFilePath("resources/data/mymap.zip");
-		properties.setHint(GUIUpDownHints);
+		properties.setZipFilePath("resources/archive/maze.zip");
+		properties.setViewType(ui);
+		properties.setHint(hint);
 		
 		File file = null;
 		JAXBContext jaxbContext = null;
@@ -56,8 +90,5 @@ public class PropertiesManager {
 		
 	}
 	
-	public static Properties getProperties() {
-		return properties;
-	}
 	
 }

@@ -46,7 +46,7 @@ public class MazeDisplay extends Canvas {
 				if (maze.getMaze() == null)
 					return;
 				
-				// fore - white, back - black
+				// foreground - white, background - black
 			   e.gc.setForeground(new Color(null,255,255,255));
 			   e.gc.setBackground(new Color(null,0,0,0));
 			
@@ -74,20 +74,22 @@ public class MazeDisplay extends Canvas {
 		// Initialize timer for 
 		this.timer = new Timer();
 		this.timerTask = new TimerTask() {
-			
+			 
 			@Override
 			public void run() {
+				// Causes the run() method of the runnable to be invoked by the user-interface thread
 				getDisplay().syncExec(new Runnable() {
 					
 					@Override
 					public void run() {
+						// Get random maze position and redraw maze
 						currPos = new GrowingTreeGenerator().getRandomPosition(maze);
 						redraw();
 					}
 				});
 			}
 		};
-		timer.scheduleAtFixedRate(this.timerTask, 0, 30);
+		timer.scheduleAtFixedRate(this.timerTask, 0, 30000);
 	}
 	public void stop(){
 		this.timerTask.cancel();

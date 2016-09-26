@@ -21,8 +21,8 @@ public class GenerateWindow extends BasicWindow {
 
 	private MyView view;
 
-	public GenerateWindow(MyView view) {
-		super();
+	public GenerateWindow(MyView view,String title, int width, int height) {
+		super(title,width,height);
 		this.view = view;
 	}
 	

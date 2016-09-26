@@ -22,7 +22,7 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 import properties.Properties;
-import properties.PropertiesLoader;
+import properties.PropertiesManager;
 import algorithms.demo.Maze3dDomain;
 import algorithms.mazeGenerators.GrowingTreeGenerator;
 import algorithms.mazeGenerators.SimpleMaze3dGenerator;
@@ -47,7 +47,7 @@ public class MyModel extends Observable implements Model {
 	private Properties properties;
 		
 	public MyModel() {
-		properties = PropertiesLoader.getInstance().getProperties();
+		properties = PropertiesManager.getInstance().getProperties();
 		executor = Executors.newFixedThreadPool(properties.getNumOfThreads());
 		loadSolutions();
 	}				
@@ -160,16 +160,13 @@ public class MyModel extends Observable implements Model {
 			oos.writeObject(solutions);			
 			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				oos.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

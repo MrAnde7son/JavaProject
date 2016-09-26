@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <properties>
-    <GUIUpDownHints>false</GUIUpDownHints>
-    <generateAlgorithm>GrowingTree</generateAlgorithm>
-    <solveAlgorithm>BFS</solveAlgorithm>
-    <threadPoolNumber>10</threadPoolNumber>
-    <userInterface>CLI</userInterface>
-    <zipFilePath>resources/data/mymap.zip</zipFilePath>
+	<name>MyMaze</name>
+    <generationAlgorithm>GrowingTree</generationAlgorithm>
+    <searchingAlgorithm>BFS</searchingAlgorithm>
+    <numOfThreads>8</numOfThreads>
+    <viewType>GUI</viewType>
+    <zipFilePath>resources/archive/maze.zip</zipFilePath>
+    <hint></hint>
 </properties>
