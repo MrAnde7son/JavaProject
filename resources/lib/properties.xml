@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<properties>
+	<name>MyMaze</name>
+    <generationAlgorithm>GrowingTree</generationAlgorithm>
+    <searchingAlgorithm>BFS</searchingAlgorithm>
+    <numOfThreads>8</numOfThreads>
+    <viewType>GUI</viewType>
+    <zipFilePath>resources/archive/maze.zip</zipFilePath>
+    <hint></hint>
+</properties>
