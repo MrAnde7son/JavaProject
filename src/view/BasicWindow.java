@@ -14,11 +14,8 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	protected Display display;
 	protected Shell shell;
 	
- 	public BasicWindow(String title, int width,int height) {
- 		display=new Display();
- 		shell  = new Shell(display);
- 		shell.setSize(width,height);
- 		shell.setText(title);
+ 	public BasicWindow() {
+ 		super();
 	}
  	
 	/***

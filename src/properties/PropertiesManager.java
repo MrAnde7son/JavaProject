@@ -57,22 +57,15 @@ public class PropertiesManager {
 			jaxbContext = JAXBContext.newInstance(Properties.class);
 			unmarshaller = jaxbContext.createUnmarshaller();
 			properties = (Properties)unmarshaller.unmarshal(file);
-		} catch (JAXBException e) {
+		} 
+		catch (JAXBException e) {
 			e.printStackTrace();
 		}
 		return properties;
 	}
 
-	public static void writeXml(String ui, String hint) {
-		properties = new Properties();
-		
-		properties.setNumOfThreads(8);
-		properties.setGenerationAlgorithm("GrowingTree");
-		properties.setSearchingAlgorthm("BFS");
-		properties.setZipFilePath("resources/archive/maze.zip");
-		properties.setViewType(ui);
-		properties.setHint(hint);
-		
+
+	public static void writeXml() {
 		File file = null;
 		JAXBContext jaxbContext = null;
 		Marshaller marshaller = null;

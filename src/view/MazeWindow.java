@@ -24,10 +24,6 @@ public class MazeWindow extends BasicWindow implements View {
 	private MazeDisplay mazeDisplay;
 	private SelectionListener generateListener, saveListener, loadListener, solveListener, exitListener;
 	
-	public MazeWindow(String title, int width, int height) {
-		super(title,width,height);
-	}
-	
 	@Override
 	protected void initWidgets() {
 		
