@@ -29,12 +29,12 @@ public abstract class CommonSearcher<T> implements Searcher<T> {
 	
 	// Returns the path from 2 nodes
 	protected Solution<T> backTrace(State<T> s){
-		Solution<T> sol = new Solution<T>();
-		State<T> itr = s;
+		Solution<T> sol = new Solution<T>(); // Initiate Solution
+		State<T> itr = s; // Initiate Iterator as the given state (needs to be the goal state)
 		sol.addState(itr);
 		while(itr != null) {
 			itr = itr.getCameFrom();
-			sol.addState(itr);
+			sol.addState(itr); // add to the solution where it came from
 		}
 		return sol;
 	}

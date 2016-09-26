@@ -37,35 +37,41 @@ public class MazeDisplay extends Canvas {
 		this.currPos = new Position(0,0,0);
 		this.player = new GameCharacter();
 		
+		// Creating the board graphically
 		this.addPaintListener(new PaintListener() {
 			
 			@Override
 			public void paintControl(PaintEvent e) {
+				
 				if (maze.getMaze() == null)
 					return;
 				
-				   e.gc.setForeground(new Color(null,255,255,255));
-				   e.gc.setBackground(new Color(null,0,0,0));
-
-				   int width=getSize().x;
-				   int height=getSize().y;
-
-				   int w=width/crossSection[0].length;
-				   int h=height/crossSection.length;
-
-				   for(int i=0;i<maze.getMaze().length;i++)
-				      for(int j=0;j<maze.getMaze()[i].length;j++){
-				          int x=j*w;
-				          int y=i*h;
-				          if(crossSection[i][j]!=0)
-				              e.gc.fillRectangle(x,y,w,h);
-				      }
-				   player.draw(0, 0, new GC(player.getImage()));
+				// fore - white, back - black
+			   e.gc.setForeground(new Color(null,255,255,255));
+			   e.gc.setBackground(new Color(null,0,0,0));
+			
+			   int width=getSize().x;
+			   int height=getSize().y;
+			
+			   int w=width/crossSection[0].length;
+			   int h=height/crossSection.length;
+			
+			   for(int i=0;i<maze.getMaze().length;i++)
+			      for(int j=0;j<maze.getMaze()[i].length;j++){
+			          int x=j*w;
+			          int y=i*h;
+			          if(crossSection[i][j]!=0)
+			              e.gc.fillRectangle(x,y,w,h);
+			      }
+			   player.draw(0, 0, new GC(player.getImage()));
 			}
 		});
 	}
 	
+	// Start Method
 	public void start(){
+		
+		// Initialize timer for 
 		this.timer = new Timer();
 		this.timerTask = new TimerTask() {
 			
