@@ -1,15 +1,18 @@
 package view;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Shell;
 
+import algorithms.mazeGenerators.GrowingTreeGenerator;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
-import algorithms.search.Solution;
 
 /***
  * MazeDisplay
@@ -25,10 +28,14 @@ public class MazeDisplay extends Canvas {
 	private Maze3d maze;
 	private Position currPos;
 	private int[][] crossSection;
+	private GameCharacter player;
+	private Timer timer;
+	private TimerTask timerTask;
 	
 	public MazeDisplay(Shell parent, int style) {
 		super(parent, style);
 		this.currPos = new Position(0,0,0);
+		this.player = new GameCharacter();
 		
 		this.addPaintListener(new PaintListener() {
 			
@@ -53,8 +60,32 @@ public class MazeDisplay extends Canvas {
 				          if(crossSection[i][j]!=0)
 				              e.gc.fillRectangle(x,y,w,h);
 				      }
+				   player.draw(0, 0, new GC(player.getImage()));
 			}
 		});
+	}
+	
+	public void start(){
+		this.timer = new Timer();
+		this.timerTask = new TimerTask() {
+			
+			@Override
+			public void run() {
+				getDisplay().syncExec(new Runnable() {
+					
+					@Override
+					public void run() {
+						currPos = new GrowingTreeGenerator().getRandomPosition(maze);
+						redraw();
+					}
+				});
+			}
+		};
+		timer.scheduleAtFixedRate(this.timerTask, 0, 30);
+	}
+	public void stop(){
+		this.timerTask.cancel();
+		this.timer.cancel();
 	}
 	
 	public Maze3d getMaze() {

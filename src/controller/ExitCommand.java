@@ -14,7 +14,6 @@ public class ExitCommand extends CommonCommand {
 	@Override
 	public void doCommand(String cmd) {
 		this.controller.getModel().exit();
-		this.controller.getModel().exit();
 	}
 
 }

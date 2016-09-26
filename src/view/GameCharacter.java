@@ -16,8 +16,12 @@ public class GameCharacter {
 		this.img = new Image(null, "resources/images/putin_head.png");
 	}
 
+	public Image getImage(){
+		return this.img;
+	}
+	
 	public Position getPos() {
-		return pos;
+		return this.pos;
 	}
 
 

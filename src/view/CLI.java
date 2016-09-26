@@ -15,6 +15,7 @@ import algorithms.mazeGenerators.Maze3d;
 public class CLI extends Observable implements View  {
 	private BufferedReader in;
 	private PrintWriter out;	
+	private MyView view;
 	
 	public CLI(BufferedReader in, PrintWriter out) {
 		this.in = in;
@@ -23,6 +24,15 @@ public class CLI extends Observable implements View  {
 	
 	private void printMenu() {
 		out.print("Choose command: ");
+		this.view.displayMessage("\tdir <path>");
+		this.view.displayMessage("\tgenerate_maze <name> <params>");
+		this.view.displayMessage("\tdisplay <name>");
+		this.view.displayMessage("\tdisplay_cross_section <name> <axis> <index>");
+		this.view.displayMessage("\tsave_maze <name> <file_name>");
+		this.view.displayMessage("\tload_maze <file_name> <name>");
+		this.view.displayMessage("\tsolve <name> <algorithm>");
+		this.view.displayMessage("\tdisplay_solution <name>");
+		this.view.displayMessage("\texit");
 		out.flush();
 	}
 	
@@ -69,20 +79,5 @@ public class CLI extends Observable implements View  {
 		// TODO Auto-generated method stub
 		
 	}
-	
-//	private void printMenu()
-//	{
-//		this.view.printMessage("*****MENU*****");
-//		this.view.printMessage("(0) <u/d/f/b/r/l> <maze_name>");
-//		this.view.printMessage("(1) dir <path>");
-//		this.view.printMessage("(2) generate_maze <name> <other params>");
-//		this.view.printMessage("(3) display <name>");
-//		this.view.printMessage("(4) display_cross_section <index> <{X,Y,Z}> <name>");
-//		this.view.printMessage("(5) save_maze <name> <file name>");
-//		this.view.printMessage("(6) load_maze <file name> <name>");
-//		this.view.printMessage("(7) solve <name> <algorithm>");
-//		this.view.printMessage("(8) display_solution <name>");
-//		this.view.printMessage("(9) exit");
-//	}
 	
 }
