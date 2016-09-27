@@ -3,21 +3,13 @@ package view;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 import properties.PropertiesManager;
@@ -29,10 +21,10 @@ public class StartWindow extends BasicWindow implements Runnable {
 		
 		this.shell = new Shell(display, SWT.TITLE | SWT.CLOSE | SWT.RESIZE);
 		this.shell.setText("Start Menu");
-		
-		this.shell.setLayout(new GridLayout(2, false));
-		this.shell.setSize(450, 500);
-		this.shell.setBackgroundImage(new Image(null, "resources/images/back.png"));	
+
+		this.shell.setLayout(new GridLayout(7, false));
+		this.shell.setSize(650, 500);
+		this.shell.setBackgroundImage(new Image(null, "resources/images/1.jpg"));	
 		this.shell.setBackgroundMode(SWT.INHERIT_DEFAULT | SWT.FILL);
 		
 //		Rectangle rect = shell.getBounds();
@@ -59,9 +51,9 @@ public class StartWindow extends BasicWindow implements Runnable {
 		Label lblHead = new Label(shell, SWT.BOLD);
 		FontData fontData = lblHead.getFont().getFontData()[0];
 		lblHead.setFont(new Font(display, new FontData(fontData.getName(), fontData.getHeight()+15, SWT.BOLD)));
-		lblHead.setText("Putin's Maze");
+		lblHead.setText("Peter Vs. Chicken Maze");
 		lblHead.setForeground(new Color(display, 255,255,255));
-		lblHead.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 2, 1));
+		lblHead.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 4, 1));
 		
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
@@ -74,40 +66,31 @@ public class StartWindow extends BasicWindow implements Runnable {
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		
-		Label labelQuestion = new Label(shell, SWT.BOLD);
-		fontData = labelQuestion.getFont().getFontData()[0];
-		labelQuestion.setFont(new Font(display, new FontData(fontData.getName(), fontData.getHeight()+7, SWT.BOLD)));
-		labelQuestion.setText("Please Choose a view type:");
-		labelQuestion.setForeground(new Color(display, 255,255,255));
-		labelQuestion.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 2, 1));
+		Label labelMiniHeader = new Label(shell, SWT.BOLD);
+		fontData = labelMiniHeader.getFont().getFontData()[0];
+		labelMiniHeader.setFont(new Font(display, new FontData(fontData.getName(), fontData.getHeight()+7, SWT.BOLD)));
+		labelMiniHeader.setText("Please Choose a view type:");
+		labelMiniHeader.setForeground(new Color(display, 255,255,255));
+		labelMiniHeader.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false));
 		
-		// GUI and CLI Images
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
 		
 		Image imageGUI = new Image(display, "resources/images/GUIButton.png");
 		Image imageCLI = new Image(display, "resources/images/CLIButton.png");
-		Image imagePutin = new Image(display, "resources/images/putin_head.png");
+		Image imagePutin = new Image(display, "resources/images/Peter_Griffin.png");
 		
-		Label labelCLI = new Label(shell, SWT.PUSH);
-		labelCLI.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
-		labelCLI.setImage(imageCLI);
-		labelCLI.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseUp(MouseEvent arg0) { }
-			
-			@Override
-			public void mouseDown(MouseEvent arg0) {
-				shell.dispose();
-			}
-			
-			@Override
-			public void mouseDoubleClick(MouseEvent arg0) { }
-		});
-		
-		
-		
+		Label labelPeter = new Label(shell, SWT.NONE);
+		labelPeter.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, true, false));
+		labelPeter.setImage(imagePutin);
+
+		// GUI and CLI Images
 		Label labelGUI = new Label(shell, SWT.PUSH);
-		labelGUI.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
+		labelGUI.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));
 		labelGUI.setImage(imageGUI);
 		labelGUI.addMouseListener(new MouseListener() {
 			
@@ -123,9 +106,39 @@ public class StartWindow extends BasicWindow implements Runnable {
 			public void mouseDoubleClick(MouseEvent arg0) { }
 		});
 		
-		Label labelPutin = new Label(shell, SWT.NONE);
-		labelPutin.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
-		labelPutin.setImage(imagePutin);
+		Label labelCLI = new Label(shell, SWT.PUSH);
+		labelCLI.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false));
+		labelCLI.setImage(imageCLI);
+		labelCLI.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseUp(MouseEvent arg0) { }
+			
+			@Override
+			public void mouseDown(MouseEvent arg0) {
+				PropertiesManager.writeXml("CLI");
+				shell.dispose();
+			}
+			
+			@Override
+			public void mouseDoubleClick(MouseEvent arg0) { }
+		});
+		
+		labelGUI.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseUp(MouseEvent arg0) { }
+			
+			@Override
+			public void mouseDown(MouseEvent arg0) {
+				PropertiesManager.writeXml("GUI");
+				shell.dispose();
+			}
+			
+			@Override
+			public void mouseDoubleClick(MouseEvent arg0) { }
+		});
+	
 		
 		// Yes Or No Radio Buttons
 		
@@ -152,49 +165,7 @@ public class StartWindow extends BasicWindow implements Runnable {
 //		radioBtns[1].setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
 //		radioBtns[1].setEnabled(false);
 //		
-//		labelGUI.addMouseListener(new MouseListener() {
-//			
-//			@Override
-//			public void mouseUp(MouseEvent arg0) { }
-//			
-//			@Override
-//			public void mouseDown(MouseEvent arg0) {
-//				radioBtns[0].setEnabled(true);
-//				radioBtns[1].setEnabled(true);
-//			}
-//			
-//			@Override
-//			public void mouseDoubleClick(MouseEvent arg0) { }
-//		});
-	
-		// If GUI selected
-//		
-//		radioBtns[0].addSelectionListener(new SelectionListener() {
-//		
-//		@Override
-//		public void widgetSelected(SelectionEvent arg0) {
-//			PropertiesManager.writeXml("GUI", "true");
-//			shell.dispose();
-//		}
-//		
-//		@Override
-//		public void widgetDefaultSelected(SelectionEvent arg0) { }
-//		});
-//	
-//		// If GUI wasn't selected
-//		
-//		radioBtns[1].addSelectionListener(new SelectionListener() {
-//		
-//		@Override
-//		public void widgetSelected(SelectionEvent arg0) {
-//			PropertiesManager.writeXml("GUI", "false");
-//			shell.dispose();
-//		}
-//		
-//		@Override
-//		public void widgetDefaultSelected(SelectionEvent arg0) { }
-//		
-//		});
+
 	}
 
 

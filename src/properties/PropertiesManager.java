@@ -65,7 +65,8 @@ public class PropertiesManager {
 	}
 
 
-	public static void writeXml() {
+	public static void writeXml(String viewType) {
+		properties.setViewType(viewType);
 		File file = null;
 		JAXBContext jaxbContext = null;
 		Marshaller marshaller = null;

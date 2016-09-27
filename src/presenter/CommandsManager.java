@@ -55,7 +55,7 @@ public class CommandsManager {
 		}		
 	}
 	/***
-	 * Lists files in a given folder.
+	 * Lists files in a given folder By using the File Class.
 	 * @param path
 	 *
 	 */
