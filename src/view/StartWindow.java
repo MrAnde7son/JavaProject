@@ -27,21 +27,6 @@ public class StartWindow extends BasicWindow implements Runnable {
 		this.shell.setBackgroundImage(new Image(null, "resources/images/1.jpg"));	
 		this.shell.setBackgroundMode(SWT.INHERIT_DEFAULT | SWT.FILL);
 		
-//		Rectangle rect = shell.getBounds();
-//		Rectangle boundries = display.getPrimaryMonitor().getBounds();
-//		int x = boundries.x + (boundries.width - rect.width) / 2;
-//		int y = boundries.y + (boundries.height - rect.height) / 2;
-//		shell.setLocation(x, y);
-//		
-//		// Listener for the closing X
-//		shell.addListener(SWT.Close, new Listener() {
-//			
-//			@Override
-//			public void handleEvent(Event arg0) {
-//				System.exit(0);
-//			}
-//		});
-		
 		// Header Titles
 		
 		new Label(shell, SWT.NONE);
@@ -124,7 +109,7 @@ public class StartWindow extends BasicWindow implements Runnable {
 			public void mouseDoubleClick(MouseEvent arg0) { }
 		});
 		
-		labelGUI.addMouseListener(new MouseListener() {
+labelGUI.addMouseListener(new MouseListener() {
 			
 			@Override
 			public void mouseUp(MouseEvent arg0) { }
@@ -136,7 +121,11 @@ public class StartWindow extends BasicWindow implements Runnable {
 			}
 			
 			@Override
-			public void mouseDoubleClick(MouseEvent arg0) { }
+			public void mouseDoubleClick(MouseEvent arg0) {
+				MazeWindow m = new MazeWindow();
+				m.run();
+				shell.dispose();
+			}
 		});
 	
 		
@@ -165,6 +154,21 @@ public class StartWindow extends BasicWindow implements Runnable {
 //		radioBtns[1].setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
 //		radioBtns[1].setEnabled(false);
 //		
+		
+//		Rectangle rect = shell.getBounds();
+//		Rectangle boundries = display.getPrimaryMonitor().getBounds();
+//		int x = boundries.x + (boundries.width - rect.width) / 2;
+//		int y = boundries.y + (boundries.height - rect.height) / 2;
+//		shell.setLocation(x, y);
+//		
+//		// Listener for the closing X
+//		shell.addListener(SWT.Close, new Listener() {
+//			
+//			@Override
+//			public void handleEvent(Event arg0) {
+//				System.exit(0);
+//			}
+//		});
 
 	}
 
