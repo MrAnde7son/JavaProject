@@ -70,7 +70,7 @@ public class Properties implements Serializable {
 	public String getSearchingAlgorithm() {
 		return searchingAlgorithm;
 	}
-	public void setSearchingAlgorthm(String searchingAlgorithm) {
+	public void setSearchingAlgorithm(String searchingAlgorithm) {
 		this.searchingAlgorithm = searchingAlgorithm;
 	}
 	public String getViewType() {

@@ -1,20 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<java version="1.8.0_101" class="java.beans.XMLDecoder">
- <object class="properties.Properties">
-  <void property="generationAlgorithm">
-   <string>GrowingTree</string>
-  </void>
-  <void property="name">
-   <string>Erlich</string>
-  </void>
-  <void property="x">
-   <int>10</int>
-  </void>
-  <void property="y">
-   <int>10</int>
-  </void>
-  <void property="z">
-   <int>10</int>
-  </void>
- </object>
-</java>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<properties>
+    <name></name>
+    <numOfThreads>8</numOfThreads>
+    <viewType>GUI</viewType>
+    <x>0</x>
+    <y>0</y>
+    <z>0</z>
+</properties>

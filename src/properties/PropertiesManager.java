@@ -35,11 +35,13 @@ public class PropertiesManager {
 	{
 		properties = new Properties();
 		try {
-			XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("resources/properties.xml")));
-			System.out.println(decoder.readObject());
-			properties = (Properties) decoder.readObject();
-			decoder.close();
-		} catch (FileNotFoundException e) {
+			File file = new File("resources/properties.xml");
+			JAXBContext jaxbContext = JAXBContext.newInstance(properties.getClass());
+			Marshaller marshaller = jaxbContext.createMarshaller();
+			
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			marshaller.marshal(properties, file);
+		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
 	}

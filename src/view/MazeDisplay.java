@@ -44,7 +44,7 @@ public class MazeDisplay extends Canvas {
 			@Override
 			public void paintControl(PaintEvent e) {
 				
-				if (maze.getMaze() == null)
+				if (maze == null || maze.getMaze() == null)
 					return;
 				
 				// foreground - white, background - black
