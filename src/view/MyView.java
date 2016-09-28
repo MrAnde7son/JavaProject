@@ -44,11 +44,9 @@ public class MyView extends Observable implements View, Observer {
 	 * @return the choose 
 	 */
 	private String chooseViewTypeFromProperties() {
-		switch (PropertiesManager.getProperties().getViewType()) {
-		case "GUI":
+		switch (PropertiesManager.getInstance().getProperties().getViewType().toLowerCase()) {
 		case "gui":
 			return "GUI";
-		case "CLI":
 		case "cli":
 			return "CLI";
 
