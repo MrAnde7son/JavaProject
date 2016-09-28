@@ -88,7 +88,8 @@ public class MyView extends Observable implements View, Observer {
 			notifyObservers(arg);
 		}
 	}
-	
+
+	@Override
 	public void sendCommand(String arg) {
 		setChanged();
 		notifyObservers(arg);

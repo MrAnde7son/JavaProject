@@ -46,8 +46,7 @@ public class CLI extends Observable implements View  {
 					printMenu();
 					try {
 						String commandLine = in.readLine();
-						setChanged();
-						notifyObservers(commandLine);
+						sendCommand(commandLine);
 						
 						if (commandLine.equals("exit"))
 							break;
@@ -63,20 +62,23 @@ public class CLI extends Observable implements View  {
 
 	@Override
 	public void notifyMazeIsReady(String name) {
-		// TODO Auto-generated method stub
-		
+		this.view.notifyMazeIsReady(name);
 	}
 
 	@Override
 	public void displayMaze(Maze3d maze) {
-		// TODO Auto-generated method stub
-		
+		this.view.displayMaze(maze);
 	}
 
 	@Override
 	public void displayMessage(String msg) {
-		// TODO Auto-generated method stub
-		
+		this.view.displayMessage(msg);
+	}
+
+	@Override
+	public void sendCommand(String arg) {
+		setChanged();
+		notifyObservers(arg);
 	}
 	
 }

@@ -12,20 +12,20 @@ import java.util.ArrayList;
  */
 public class Solution<T> {
 	
-	private ArrayList<State<T>> solution;
+	private ArrayList<State<T>> states;
 	
 	public Solution(){
-		this.solution = new ArrayList<State<T>>();
+		this.states = new ArrayList<State<T>>();
 	}
 	
 	public void addState(State<T> s) {
-		this.solution.add(s);
+		this.states.add(s);
 	}
 	
 	@Override
 	public String toString() {
 		String sol = new String();
-		for(State<T> state: solution){
+		for(State<T> state: states){
 			sol += state.getState() + " <- ";
 		}
 		sol += "Start";
@@ -36,14 +36,14 @@ public class Solution<T> {
 	public boolean equals(Object obj) {
 		@SuppressWarnings("unchecked")
 		Solution<T> solution = (Solution<T>)obj;
-		return this.solution.equals(solution.solution);
+		return this.states.equals(solution.states);
 	}
 
-	public ArrayList<State<T>> getSolution() {
-		return solution;
+	public ArrayList<State<T>> getStates() {
+		return states;
 	}
 
-	public void setSolution(ArrayList<State<T>> solution) {
-		this.solution = solution;
+	public void setSolution(ArrayList<State<T>> states) {
+		this.states = states;
 	}
 }

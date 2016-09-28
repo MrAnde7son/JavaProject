@@ -25,8 +25,10 @@ import algorithms.mazeGenerators.Position;
  */
 public class MazeDisplay extends Canvas {
 	
+	private String mazeName;
 	private Maze3d maze;
 	private Position currPos;
+	private Position goal;
 	private int[][] crossSection;
 	private GameCharacter player;
 	private Timer timer;
@@ -34,7 +36,8 @@ public class MazeDisplay extends Canvas {
 	
 	public MazeDisplay(Shell parent, int style) {
 		super(parent, style);
-		this.currPos = new Position(0,0,0);
+		this.currPos = maze.getStartPosition();
+		this.goal = maze.getGoalPosition();
 		this.player = new GameCharacter();
 		
 		// Creating the board graphically
@@ -115,5 +118,19 @@ public class MazeDisplay extends Canvas {
 	public void setCurrPos(Position currPos) {
 		this.currPos = currPos;
 	}
+
+	public void setCharacterPosition(Position pos) {
+		this.currPos = pos;
+		
+	}
+
+	public void setGoalPosition(Position goal) {
+		this.goal = goal;
+	}
+
+	public void setMazeName(String mazeName) {
+		this.mazeName = mazeName;
+	}
+
 
 }

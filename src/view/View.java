@@ -7,8 +7,9 @@ import algorithms.mazeGenerators.Maze3d;
  *
  */
 public interface View {
-	void notifyMazeIsReady(String name);
-	void displayMaze(Maze3d maze);
-	void displayMessage(String msg);	
-	void start();	
+	public void notifyMazeIsReady(String name);
+	public void displayMaze(Maze3d maze);
+	public void displayMessage(String msg);	
+	public void start();
+	public void sendCommand(String arg);
 }

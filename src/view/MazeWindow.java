@@ -101,7 +101,7 @@ public class MazeWindow extends BasicWindow implements View {
 			
 			@Override
 			public void handleEvent(Event arg0) {
-				executeCommand("exit");
+				sendCommand("exit");
 			}
 		});
 		
@@ -172,7 +172,7 @@ public class MazeWindow extends BasicWindow implements View {
 			public void widgetSelected(SelectionEvent arg0) {
 				if (mazeName == null)
 					view.displayMessage("Generate/Load a maze first!");
-				else executeCommand("solve " + mazeName + " " + cmbSolveAlgo.getText());
+				else sendCommand("solve " + mazeName + " " + cmbSolveAlgo.getText());
 			}
 
 			@Override
@@ -188,7 +188,7 @@ public class MazeWindow extends BasicWindow implements View {
 		lblLoadFromDatabase.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
 
 		final Combo cmbLoadFromDatabase = new Combo(cmpLoad, SWT.READ_ONLY);
-		executeCommand("GetDatabaseValues");
+		sendCommand("GetDatabaseValues");
 		cmbLoadFromDatabase.setItems(this.itemsFromDatabase);
 		cmbLoadFromDatabase.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
@@ -201,7 +201,7 @@ public class MazeWindow extends BasicWindow implements View {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				if (cmbLoadFromDatabase.getText() != "")
-					executeCommand("display " + cmbLoadFromDatabase.getText());
+					sendCommand("display " + cmbLoadFromDatabase.getText());
 				else view.displayMessage("Pick a maze from the list first!");
 			}
 			
@@ -225,7 +225,7 @@ public class MazeWindow extends BasicWindow implements View {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				executeCommand("save_maze " + mazeName + " " + mazeName + ".maz");
+				sendCommand("save_maze " + mazeName + " " + mazeName + ".maz");
 			}
 			
 			@Override
@@ -240,7 +240,7 @@ public class MazeWindow extends BasicWindow implements View {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				executeCommand("dir ./resources/saved_mazes");
+				sendCommand("load_maze " + mazeName + " " + mazeName + ".maz");
 			}
 			
 			@Override
@@ -259,7 +259,7 @@ public class MazeWindow extends BasicWindow implements View {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				executeCommand("exit");
+				sendCommand("exit");
 			}
 			
 			@Override
@@ -267,7 +267,7 @@ public class MazeWindow extends BasicWindow implements View {
 			}
 		});
 		
-		mazeDisplay = new MazeDisplay(shell, SWT.BORDER, this.view);
+		mazeDisplay = new MazeDisplay(shell, SWT.BORDER);
 		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		
 		mazeDisplay.setFocus();
@@ -283,13 +283,13 @@ public class MazeWindow extends BasicWindow implements View {
 			view.displayMessage("Generate/Load a maze first!");
 		else {
 			hint = true;
-			executeCommand("hint " + mazeName + " BFS");
+			sendCommand("hint " + mazeName + " BFS");
 		}
 	}
 
 	/**
-	 * This method  will intalise data member so we could call the mazeDisplay 
-	 * and drew the maze
+	 * This method will initialize data members so we could call the mazeDisplay 
+	 * and draw the maze
 	 * @param Maze3d, the maze
 	 * @param String, maze name  
 	 */
@@ -329,9 +329,9 @@ public class MazeWindow extends BasicWindow implements View {
 	 * Get a commandLine and call the view to execute it
 	 */
 	@Override
-	public void executeCommand(String commandLine) {
+	public void sendCommand(String commandLine) {
 		try {
-			this.view.executeCommand(commandLine);
+			this.view.sendCommand(commandLine);
 		} catch (IllegalArgumentException e) {
 			displayMessage(e.getMessage());
 		}
@@ -355,8 +355,8 @@ public class MazeWindow extends BasicWindow implements View {
 				
 				@Override
 				public void run() {
-					if (i < solution.getSolution()().size())
-						move(solution.getSolution().get(i++).getValue());
+					if (i < solution.getStates().size())
+						move(solution.getStates().get(i++).getState());
 					else {
 						display.syncExec(new Runnable() {
 	
@@ -382,15 +382,15 @@ public class MazeWindow extends BasicWindow implements View {
 	 */
 	@Override
 	public void move(Position pos) {
-		this.crossSection = this.maze.getCrossSectionByZ(pos.z);
-		setIfCanGoUpOrDown(pos.z);
+		this.crossSection = this.maze.getCrossSectionByZ(pos.getZ());
+		setIfCanGoUpOrDown(pos.getZ());
 		this.mazeDisplay.setCrossSection(this.crossSection, this.canUp, this.canDown);
-		this.mazeDisplay.setWhichFloorAmI(pos.z);
+		this.mazeDisplay.setWhichFloorAmI(pos.getZ());
 		this.mazeDisplay.moveTheCharacter(pos);
 	}
 
 	/**
-	 * This method display the winner and after that ww would like to display another
+	 * This method display the winner and after that we would like to display another
 	 * winner so we will set winner as false 
 	 */
 	@Override
@@ -459,7 +459,6 @@ public class MazeWindow extends BasicWindow implements View {
 	/**
 	 * get the databaseValues after split with ,
 	 */
-	@Override
 	public void databaseValues(String databaseValues) {
 		this.itemsFromDatabase = databaseValues.split(",");
 	}
@@ -467,12 +466,26 @@ public class MazeWindow extends BasicWindow implements View {
 	/**
 	 *create new load Window and open it
 	 */
-	@Override
 	public void dirListReady(String[] dirList) {
 		LoadWindow winLoad = new LoadWindow(view, dirList[0]);
 		winLoad.start(display);
 	}
 	
+	@Override
+	public void notifyMazeIsReady(final String name) {
+		display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				MessageBox msg = new MessageBox(shell);
+				msg.setMessage("Maze " + name + " is ready");
+				msg.open();	
+				
+				setChanged();
+				notifyObservers("display_maze " + name);
+			}
+		});			
+	}
 	
 //	@Override
 //	protected void initWidgets() {
