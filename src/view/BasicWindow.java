@@ -23,6 +23,11 @@ public abstract class BasicWindow extends Observable implements Runnable {
 	 */
 	protected abstract void initWidgets();
 	
+	public void start()
+	{
+		run();
+	}
+	
 	@Override
 	public void run() {
 		display = new Display();

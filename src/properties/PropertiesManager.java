@@ -20,7 +20,7 @@ public class PropertiesManager {
 	
 	private static Properties properties = null;
 	
-	public Properties getProperties() {
+	public static Properties getProperties() {
 		return properties;
 	}
 	
