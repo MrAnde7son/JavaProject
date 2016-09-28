@@ -19,9 +19,9 @@ public class PropertiesManager {
 	
 	private static PropertiesManager instance;
 	
-	private Properties properties = null;
+	private static Properties properties = null;
 	
-	public Properties getProperties() {
+	public static Properties getProperties() {
 		return properties;
 	}
 	
@@ -54,8 +54,6 @@ public class PropertiesManager {
 		if (instance == null) 
 			instance = new PropertiesManager();
 		return instance;
-		
-		
 	}
 	
 	public Properties readXML() {

@@ -32,7 +32,7 @@ public class MyView extends Observable implements View, Observer {
 		if (chosenView == "CLI")
 			this.cli = new CLI(in, out);
 		else
-			this.mazeWindow = new MazeWindow();
+			this.mazeWindow = new MazeWindow(this);
 
 		
 //		cli = new CLI(in, out);
@@ -44,7 +44,8 @@ public class MyView extends Observable implements View, Observer {
 	 * @return the choose 
 	 */
 	private String chooseViewTypeFromProperties() {
-		switch (PropertiesManager.getInstance().getProperties().getViewType().toLowerCase()) {
+		PropertiesManager.getInstance();
+		switch (PropertiesManager.getProperties().getViewType().toLowerCase()) {
 		case "gui":
 			return "GUI";
 		case "cli":

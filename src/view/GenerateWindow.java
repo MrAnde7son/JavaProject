@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Text;
  * Represents the GenerateWindow of Maze3d.
  * @author Itamar&Erlich
  */
-public class GenerateWindow extends BasicWindow {
+public class GenerateWindow extends DialogWindow {
 
 	private MyView view;
 
@@ -31,7 +31,7 @@ public class GenerateWindow extends BasicWindow {
 		this.shell.setText("Generation Window");
 		this.shell.setLayout(new GridLayout(2, false));
 		this.shell.setSize(215, 215);
-		this.shell.setBackgroundImage(new Image(null, "<add image>"));
+//		this.shell.setBackgroundImage(new Image(null, "resources/images/backgroundSmall.png"));
 		this.shell.setBackgroundMode(SWT.INHERIT_DEFAULT);
 		
 		Rectangle bounds = display.getPrimaryMonitor().getBounds();

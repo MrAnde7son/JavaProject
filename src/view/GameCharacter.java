@@ -14,6 +14,7 @@ public class GameCharacter {
 	
 	public GameCharacter() {
 		this.img = new Image(null, "resources/images/peter.png");
+		this.pos = new Position(1,1,1);
 	}
 
 	public Image getImage(){
