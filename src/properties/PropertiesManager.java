@@ -1,6 +1,7 @@
 package properties;
 
 import java.beans.XMLDecoder;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,28 +19,30 @@ public class PropertiesManager {
 	
 	private static PropertiesManager instance;
 	
-	private static Properties properties = null;
+	private Properties properties = null;
 	
-	public static Properties getProperties() {
+	public Properties getProperties() {
 		return properties;
 	}
 	
-	public PropertiesManager() {
+//	public PropertiesManager() {
 		// TODO Auto-generated constructor stub
-	}
+//	}
 	/***
 	 * Private constructor to allow creation of one instance only.
 	 */
-//	private PropertiesManager() 
-//	{
-//		try {
-//			XMLDecoder decoder = new XMLDecoder(new FileInputStream("resources/properties.xml"));
-//			properties = (Properties)decoder.readObject();
-//			decoder.close();
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	private PropertiesManager() 
+	{
+		properties = new Properties();
+		try {
+			XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("resources/properties.xml")));
+			System.out.println(decoder.readObject());
+			properties = (Properties) decoder.readObject();
+			decoder.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	/***
 	 * returns the created instance of type PropertiesManager
@@ -49,16 +52,16 @@ public class PropertiesManager {
 		if (instance == null) 
 			instance = new PropertiesManager();
 		return instance;
+		
+		
 	}
 	
-	public static Properties readXML() {
-		File file = null;
-		JAXBContext jaxbContext = null;
-		Unmarshaller unmarshaller = null;
+	public Properties readXML() {
+		getInstance();
 		try {
-			file = new File("resources/properties.xml");
-			jaxbContext = JAXBContext.newInstance(Properties.class);
-			unmarshaller = jaxbContext.createUnmarshaller();
+			File file = new File("resources/properties.xml");
+			JAXBContext jaxbContext = JAXBContext.newInstance(Properties.class);
+			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			properties = (Properties)unmarshaller.unmarshal(file);
 		} 
 		catch (JAXBException e) {
@@ -68,16 +71,13 @@ public class PropertiesManager {
 	}
 
 
-	public static void writeXml(String viewType) {
-		properties = new Properties();
+	public void writeXml(String viewType) {
+		getInstance();
 		properties.setViewType(viewType);
-		File file = null;
-		JAXBContext jaxbContext = null;
-		Marshaller marshaller = null;
 		try {
-			file = new File("resources/properties.xml");
-			jaxbContext = JAXBContext.newInstance(properties.getClass());
-			marshaller = jaxbContext.createMarshaller();
+			File file = new File("resources/properties.xml");
+			JAXBContext jaxbContext = JAXBContext.newInstance(properties.getClass());
+			Marshaller marshaller = jaxbContext.createMarshaller();
 			
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			marshaller.marshal(properties, file);

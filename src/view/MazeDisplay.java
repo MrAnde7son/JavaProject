@@ -36,8 +36,6 @@ public class MazeDisplay extends Canvas {
 	
 	public MazeDisplay(Shell parent, int style) {
 		super(parent, style);
-		this.currPos = maze.getStartPosition();
-		this.goal = maze.getGoalPosition();
 		this.player = new GameCharacter();
 		
 		// Creating the board graphically

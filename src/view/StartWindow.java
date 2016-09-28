@@ -9,10 +9,12 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 import properties.PropertiesManager;
@@ -30,20 +32,21 @@ public class StartWindow extends BasicWindow implements Runnable {
 		this.shell.setBackgroundImage(new Image(null, "resources/images/1.jpg"));	
 		this.shell.setBackgroundMode(SWT.INHERIT_DEFAULT | SWT.FILL);
 		
-//		Rectangle rect = shell.getBounds();
-//		Rectangle boundries = display.getPrimaryMonitor().getBounds();
-//		int x = boundries.x + (boundries.width - rect.width) / 2;
-//		int y = boundries.y + (boundries.height - rect.height) / 2;
-//		shell.setLocation(x, y);
-//		
-//		// Listener for the closing X
-//		shell.addListener(SWT.Close, new Listener() {
-//			
-//			@Override
-//			public void handleEvent(Event arg0) {
-//				System.exit(0);
-//			}
-//		});
+		Rectangle rect = shell.getBounds();
+		Rectangle boundries = display.getPrimaryMonitor().getBounds();
+		int x = boundries.x + (boundries.width - rect.width) / 2;
+		int y = boundries.y + (boundries.height - rect.height) / 2;
+		shell.setLocation(x, y);
+		
+		// Listener for the closing X
+		shell.addListener(SWT.Close, new Listener() {
+			
+			@Override
+			public void handleEvent(Event arg0) {
+				System.exit(0);
+			}
+
+		});
 		
 		// Header Titles
 		
@@ -95,7 +98,6 @@ public class StartWindow extends BasicWindow implements Runnable {
 //		shell.setDefaultButton(GUI);
 //		GUI.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));
 //		GUI.setImage(imageGUI);
-		
 		// GUI and CLI Images
 		Label labelGUI = new Label(shell, SWT.PUSH);
 		labelGUI.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));
@@ -107,12 +109,14 @@ public class StartWindow extends BasicWindow implements Runnable {
 			
 			@Override
 			public void mouseDown(MouseEvent arg0) {
+				PropertiesManager.getInstance().writeXml("GUI");
 				shell.dispose();
 			}
 			
 			@Override
 			public void mouseDoubleClick(MouseEvent arg0) { }
 		});
+
 		
 		Label labelCLI = new Label(shell, SWT.PUSH);
 		labelCLI.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false));
@@ -124,7 +128,7 @@ public class StartWindow extends BasicWindow implements Runnable {
 			
 			@Override
 			public void mouseDown(MouseEvent arg0) {
-				PropertiesManager.writeXml("CLI");
+				PropertiesManager.getInstance().writeXml("CLI");
 				shell.dispose();
 			}
 			
@@ -132,20 +136,6 @@ public class StartWindow extends BasicWindow implements Runnable {
 			public void mouseDoubleClick(MouseEvent arg0) { }
 		});
 		
-		labelGUI.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseUp(MouseEvent arg0) { }
-			
-			@Override
-			public void mouseDown(MouseEvent arg0) {
-				PropertiesManager.writeXml("GUI");
-				shell.dispose();
-			}
-			
-			@Override
-			public void mouseDoubleClick(MouseEvent arg0) { }
-		});
 //	
 		
 		// Yes Or No Radio Buttons

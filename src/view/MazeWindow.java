@@ -35,7 +35,6 @@ import algorithms.search.Solution;
 public class MazeWindow extends BasicWindow implements View {
 
 	private MazeDisplay mazeDisplay;
-	private SelectionListener generateListener, saveListener, loadListener, solveListener, exitListener;
 	private boolean hint;
 	private Maze3d maze;
 	private String mazeName;
@@ -108,7 +107,7 @@ public class MazeWindow extends BasicWindow implements View {
 		Composite buttons = new Composite(shell, SWT.NONE);
 		buttons.setLayout(new GridLayout(1, false));
 		
-		Image imgMenu = new Image(display, "resources/images/menu.png");
+		Image imgMenu = new Image(display, "resources/images/main.png");
 		Label lblMenu = new Label(buttons, SWT.NONE);
 		lblMenu.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, true, 1, 1));
 		lblMenu.setImage(imgMenu);
@@ -182,7 +181,7 @@ public class MazeWindow extends BasicWindow implements View {
 		Composite cmpLoad = new Composite(buttons, SWT.NONE);
 		cmpLoad.setLayout(new GridLayout(1, false));
 		cmpLoad.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 15));
-		
+		/*
 		Label lblLoadFromDatabase = new Label(cmpLoad, SWT.NONE);
 		lblLoadFromDatabase.setText("Load maze from database");
 		lblLoadFromDatabase.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
@@ -208,7 +207,7 @@ public class MazeWindow extends BasicWindow implements View {
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) { }
 		});
-		
+		*/
 		Composite cmpSaveLoadFromFile = new Composite(buttons, SWT.NONE);
 		cmpSaveLoadFromFile.setLayout(new GridLayout(1, false));
 		cmpSaveLoadFromFile.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 13));
