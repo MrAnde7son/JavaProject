@@ -3,7 +3,6 @@ package view;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
@@ -23,10 +22,10 @@ import algorithms.mazeGenerators.Maze3d;
 public class MazeWindow extends BasicWindow implements View {
 
 	private MazeDisplay mazeDisplay;
-	//private SelectionListener generateListener, saveListener, loadListener, solveListener, exitListener;
+	private SelectionListener generateListener, saveListener, loadListener, solveListener, exitListener;
 	
-	public MazeWindow(){
-		this.mazeDisplay = new MazeDisplay(this.shell, SWT.NONE);
+	public MazeWindow() {
+		
 	}
 	
 	@Override
@@ -40,76 +39,20 @@ public class MazeWindow extends BasicWindow implements View {
 		btnGroup.setLayout(rowLayout);
 	
 		Button btnGenerateMaze = new Button(btnGroup, SWT.PUSH);
-		btnGenerateMaze.setText("Generate");
-		btnGenerateMaze.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		btnGenerateMaze.addSelectionListener(new SelectionListener() {
-			
-			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void widgetDefaultSelected(SelectionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		btnGenerateMaze.setText("Generate");	
+		btnGenerateMaze.addSelectionListener(generateListener);
 		
 		Button btnSolveMaze = new Button(btnGroup, SWT.PUSH);
 		btnSolveMaze.setText("Solve");
-		btnSolveMaze.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		btnSolveMaze.addSelectionListener(new SelectionListener() {
-			
-			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void widgetDefaultSelected(SelectionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		btnSolveMaze.addSelectionListener(solveListener);
 		
 		Button btnSaveMaze = new Button(btnGroup, SWT.PUSH);
-		btnSaveMaze.setText("Save");
-		btnSaveMaze.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		btnSaveMaze.addSelectionListener(new SelectionListener() {
-			
-			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void widgetDefaultSelected(SelectionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		btnSolveMaze.setText("Save");
+		btnSolveMaze.addSelectionListener(saveListener);
 		
 		Button btnLoadMaze = new Button(btnGroup, SWT.PUSH);
-		btnLoadMaze.setText("Load");
-		btnLoadMaze.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		btnLoadMaze.addSelectionListener(new SelectionListener() {
-			
-			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void widgetDefaultSelected(SelectionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		btnSolveMaze.setText("Load");
+		btnSolveMaze.addSelectionListener(loadListener);
 	}
 
 	protected void showGenerateMazeOptions() {

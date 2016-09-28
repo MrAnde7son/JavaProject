@@ -2,11 +2,15 @@ package properties;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /***
  * Properties of type Maze3d.
  * @author Itamar Mizrahi & Chen Erlich
  *
  */
+@SuppressWarnings("serial")
+@XmlRootElement
 public class Properties implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -18,6 +22,20 @@ public class Properties implements Serializable {
 	private int numOfThreads;
 	private String zipFilePath;
 	private String hint;
+	
+	public Properties() {
+		name = "";
+		generationAlgorithm = null;
+		x = 0;
+		y = 0;
+		z = 0;
+		searchingAlgorithm = null;
+		viewType = null;
+		numOfThreads = 8;
+		zipFilePath = null;
+		hint = null;
+		
+	}
 	
 	public String getName() {
 		return name;

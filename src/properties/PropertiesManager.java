@@ -18,25 +18,28 @@ public class PropertiesManager {
 	
 	private static PropertiesManager instance;
 	
-	private static Properties properties;
+	private static Properties properties = null;
 	
 	public Properties getProperties() {
 		return properties;
 	}
 	
+	public PropertiesManager() {
+		// TODO Auto-generated constructor stub
+	}
 	/***
 	 * Private constructor to allow creation of one instance only.
 	 */
-	private PropertiesManager() 
-	{
-		try {
-			XMLDecoder decoder = new XMLDecoder(new FileInputStream("resources/properties.xml"));
-			properties = (Properties)decoder.readObject();
-			decoder.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
+//	private PropertiesManager() 
+//	{
+//		try {
+//			XMLDecoder decoder = new XMLDecoder(new FileInputStream("resources/properties.xml"));
+//			properties = (Properties)decoder.readObject();
+//			decoder.close();
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
 	/***
 	 * returns the created instance of type PropertiesManager
@@ -66,6 +69,7 @@ public class PropertiesManager {
 
 
 	public static void writeXml(String viewType) {
+		properties = new Properties();
 		properties.setViewType(viewType);
 		File file = null;
 		JAXBContext jaxbContext = null;
