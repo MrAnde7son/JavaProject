@@ -356,9 +356,6 @@ public class MazeWindow extends BasicWindow implements View {
 //			this.mazeDisplay.setWinner(false);
 //	}
 
-	/**
-	 * Get a commandLine and call the view to execute it
-	 */
 	@Override
 	public void sendCommand(String commandLine) {
 		try {
@@ -368,12 +365,6 @@ public class MazeWindow extends BasicWindow implements View {
 		}
 	}
 
-	/**
-	 * Display the solution of the maze
-	 * If the user asked for a hint, it show only the first step of the solution
-	 * else, the solution will be showd in animation
-	 * @param Solution<Position>, the solution
-	 */
 //	@Override
 //	public void displaySolution(final Solution<Position> solution) {
 //		if (this.hint) { // the user asked for only one step from the solution (a hint)
@@ -406,11 +397,6 @@ public class MazeWindow extends BasicWindow implements View {
 //		}
 //	}
 
-	/**
-	 * Initalise the crossSection data member, check if there is option to move up/down
-	 * call the mazeDisplay data member and enter to the setCrossSection the crossSection of Maze3dWindow 
-	 * and the list of upHint, the list of downHint
-	 */
 //	@Override
 //	public void move(Position pos) {
 //		this.crossSection = this.maze.getCrossSectionByZ(pos.getZ());
@@ -420,10 +406,6 @@ public class MazeWindow extends BasicWindow implements View {
 //		this.mazeDisplay.moveTheCharacter(pos);
 //	}
 
-	/**
-	 * This method display the winner and after that we would like to display another
-	 * winner so we will set winner as false 
-	 */
 //	@Override
 //	public void winner() {
 //		this.crossSection = this.maze.getCrossSectionByZ(this.maze.getGoalPosition().getZ());
@@ -436,12 +418,7 @@ public class MazeWindow extends BasicWindow implements View {
 //		this.mazeDisplay.setWinner(false);
 //	}
 //	
-	/**
-	 * check if we can go up or down in the floor the Character is
-	 * we have list of can move up and a list of can move down
-	 * if the up/down possible is true we will add it to the list
-	 * @param floor, int
-	 */
+
 //	private void setIfCanGoUpOrDown(int floor) {
 //		boolean upPossible = false;
 //		boolean downPossible = false;
@@ -467,21 +444,11 @@ public class MazeWindow extends BasicWindow implements View {
 //		}
 //	}
 
-	/**
-	 * This method check if we can go down with the character
-	 * @param y, the rows
-	 * @param x, the cols
-	 */
 //	private void checkForDown(int y, int x) {
 //		if (this.lowerCrossSection[y][x] == this.crossSection[y][x] && this.crossSection[y][x] == Maze3d.FREE)
 //			this.canDown.add(new Point(y, x));
 //	}
 
-	/**
-	 * This method check if we can go up with the character
-	 * @param y, the rows
-	 * @param x, the cols
-	 */
 //	private void checkForUp(int y, int x) {
 //		if (this.upperCrossSection[y][x] == this.crossSection[y][x] && this.crossSection[y][x] == Maze3d.FREE)
 //			this.canUp.add(new Point(y, x));

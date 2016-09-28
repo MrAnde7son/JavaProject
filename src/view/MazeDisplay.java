@@ -63,11 +63,6 @@ public class MazeDisplay extends Canvas {
 	private TimerTask timerTask;
 	private Properties properties;
 	
-	/**
-	 * Constructor 
-	 * @param Composite parent, int style, MyView view
-	 * draw the maze
-	 */
 	public MazeDisplay(Composite parent, int style) {
 		super(parent, style);
 		
@@ -144,12 +139,6 @@ public class MazeDisplay extends Canvas {
 			}
 		});
 		
-		/**
-		 * This method will listene to the key from io and if it isn't null will 
-		 * execute the command and than draw again
-		 * leagel command : ARROW_RIGHT, ARROW_LEFT, ARROW_UP, ARROW_DOWN, PAGE_DOWN, PAGE_UP
-		 * deafult None
-		 */
 		this.addKeyListener(new KeyListener() {
 			
 			@Override
@@ -187,30 +176,16 @@ public class MazeDisplay extends Canvas {
 		});
 
 	}
-	
-	/**
-	 * setWinner
-	 * @param winner, boolean
-	 */
 
 	public void setWinner(boolean winner) {
 		this.winner = winner;
 	}
 
-	/**
-	 *This method tell us where are we in the maze
-	 * @param whichFloorAmI, int
-	 */
 	public void setWhichFloorAmI(int whichFloorAmI) {
 		this.whichFloorAmI = whichFloorAmI;
 	}
 
-	/**
-	 * paint the maze in crossSection [][]
-	 * @param crossSection, crossSection
-	 * @param upHint, List<Point>
-	 * @param downHint, List<Point>
-	 */
+
 	public void setCrossSection(int[][] crossSection, List<Point> upHint, List<Point> downHint) {
 		this.crossSection = crossSection;
 		this.upHint = upHint;
@@ -218,52 +193,30 @@ public class MazeDisplay extends Canvas {
 		redrawMe();
 	}
 
-	/**
-	 * set the character position then draw the maze
-	 * @param pos, the position 
-	 */
 	public void setCharacterPosition(Position pos) {
 		this.character.setPos(pos);
 		redrawMe();
 	}
 
-	/**
-	 * move the character
-	 * @param pos, the position
-	 */
 	public void moveTheCharacter(Position pos) {
 		this.character.setPos(pos);
 		redrawMe();
 	}
-	/**
-	 * setMazeName 
-	 * @param String mazeName
-	 */
+
 	public void setMazeName(String mazeName) {
 		this.mazeName = mazeName;
 	}
 	
-	/**
-	 * set goal position
-	 * @param Position goalPosition
-	 */
 	public void setGoalPosition(Position goalPosition) {
 		this.goalPosition = goalPosition;
 	}
 	
-	/**
-	 *This method draw a hint to the player
-	 * @param PositionhintPos
-	 */
 	public void drawHint(Position hintPos) {
 		this.drawMeAHint = true;
 		this.hintPosition = hintPos;
 		redrawMe();
 	}
 	
-	/**
-	 *This method readraw the canvas in runnable sync
-	 */
 	private void redrawMe() {
 		getDisplay().syncExec(new Runnable() {
 
