@@ -58,6 +58,7 @@ public class MyView extends Observable implements View {
 	public void displayMaze(String name, Maze3d maze) {
 		if(cli == null){
 			this.mazeWindow.initMaze(name,maze);
+			this.mazeWindow.notifyMazeIsReady(name);
 		}
 		else {
 		this.out.write(maze.toString());

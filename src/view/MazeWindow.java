@@ -101,11 +101,6 @@ public class MazeWindow extends BasicWindow implements View {
 		Composite buttons = new Composite(shell, SWT.NONE);
 		buttons.setLayout(new GridLayout(1, false));
 		
-//		Image imgMenu = new Image(display, "resources/images/main.png");
-//		Label lblMenu = new Label(buttons, SWT.NONE);
-//		lblMenu.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, true, 1, 1));
-//		lblMenu.setImage(imgMenu);
-//		
 		Composite cmpGenerate = new Composite(buttons, SWT.NONE);
 		cmpGenerate.setLayout(new GridLayout(1, false));
 		cmpGenerate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 13));
@@ -118,8 +113,8 @@ public class MazeWindow extends BasicWindow implements View {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				GenerateWindow genWin = new GenerateWindow(view);
-				genWin.start(display);
+				GenerateWindow genWindow = new GenerateWindow(view);
+				genWindow.start(display);
 			}
 
 			@Override
@@ -215,7 +210,7 @@ public class MazeWindow extends BasicWindow implements View {
 		saveItem.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				sendCommand("save_maze " + mazeDisplay.getMazeName() + " " + mazeDisplay.getMazeName() + ".maz");
+				sendCommand("save " + mazeDisplay.getMazeName() + " " + mazeDisplay.getMazeName() + ".maz");
 			}
 			
 			@Override
@@ -229,7 +224,7 @@ public class MazeWindow extends BasicWindow implements View {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				sendCommand("load_maze " + mazeDisplay.getMazeName() + " " + mazeDisplay.getMazeName() + ".maz");
+				sendCommand("load " + mazeDisplay.getMazeName() + " " + mazeDisplay.getMazeName() + ".maz");
 			}
 			
 			@Override
