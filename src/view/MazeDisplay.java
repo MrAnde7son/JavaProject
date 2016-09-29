@@ -243,6 +243,30 @@ public class MazeDisplay extends Canvas {
 		redrawMe();
 	}
 
+	public void moveRight(){
+		this.character.setPos(new Position(currPos.getX(), currPos.getY(), currPos.getZ()+1));
+	}
+	
+	public void moveLeft(){
+		this.character.setPos(new Position(currPos.getX(), currPos.getY(), currPos.getZ()-1));
+	}
+	
+	public void moveUp(){
+		this.character.setPos(new Position(currPos.getX(), currPos.getY()+1, currPos.getZ()));
+	}
+	
+	public void moveDown(){
+		this.character.setPos(new Position(currPos.getX(), currPos.getY()-1, currPos.getZ()));
+	}
+	
+	public void moveAbove(){
+		this.character.setPos(new Position(currPos.getX()+1, currPos.getY(), currPos.getZ()));
+	}
+	
+	public void moveBelow(){
+		this.character.setPos(new Position(currPos.getX()-1, currPos.getY(), currPos.getZ()));
+	}
+	
 	public void moveToPosition(Position pos) {
 		this.character.setPos(pos);
 		redrawMe();
