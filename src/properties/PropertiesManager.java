@@ -19,15 +19,12 @@ public class PropertiesManager {
 	
 	private static PropertiesManager instance;
 	
-	private static Properties properties = null;
+	private Properties properties;
 	
-	public static Properties getProperties() {
+	public Properties getProperties() {
 		return properties;
 	}
 	
-//	public PropertiesManager() {
-		// TODO Auto-generated constructor stub
-//	}
 	/***
 	 * Private constructor to allow creation of one instance only.
 	 */

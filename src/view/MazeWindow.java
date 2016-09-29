@@ -51,16 +51,8 @@ public class MazeWindow extends BasicWindow implements View {
 	
 	public MazeWindow(MyView view) {
 		this.view = view;
-		this.hint = false;
-		this.maze = null;
-		this.mazeName = null;
-		this.canUp = null;
-		this.canDown = null;
-		this.crossSection = null;
-		this.upperCrossSection = null;
-		this.lowerCrossSection = null;
 	}
-	
+/*	
 	public MazeWindow() {
 		this.view = null;
 		this.hint = false;
@@ -72,7 +64,7 @@ public class MazeWindow extends BasicWindow implements View {
 		this.upperCrossSection = null;
 		this.lowerCrossSection = null;
 	}
-
+*/
 	
 	/**
 	 * initWidgets
@@ -85,8 +77,10 @@ public class MazeWindow extends BasicWindow implements View {
 		this.shell.setLayout(grid);
 		this.shell.setText("Peter Vs. Chicken Maze");
 		this.shell.setSize(800,600);
-		this.shell.setBackgroundMode(SWT.INHERIT_DEFAULT);
-//		this.shell.setBackgroundImage(new Image(null, "resources/images/main.png"));
+		Image imgMain = new Image(this.display, "resources/images/main2.jpg");
+		this.shell.setBackgroundMode(SWT.FILL | SWT.INHERIT_FORCE);
+		this.shell.setBackgroundImage(imgMain);
+		this.shell.setFullScreen(true);
 		
 		// Open in center of screen
 		Rectangle bounds = display.getPrimaryMonitor().getBounds();
@@ -132,8 +126,50 @@ public class MazeWindow extends BasicWindow implements View {
 			public void widgetDefaultSelected(SelectionEvent arg0) {
 			}
 		});
-		Button btnSolve = null;
-		Button btnHint = new Button(cmpGenerateHint, SWT.PUSH | SWT.FILL);
+		
+		Composite cmpSaveLoad = new Composite(buttons, SWT.NONE);
+		cmpSaveLoad.setLayout(new GridLayout(1, false));
+		cmpSaveLoad.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 13));
+		
+		Label lblLoadSaveFromFile = new Label(cmpSaveLoad, SWT.NONE);
+		lblLoadSaveFromFile.setText("Load/Save");
+		lblLoadSaveFromFile.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
+		
+		Button btnSave = new Button(cmpSaveLoad, SWT.PUSH | SWT.FILL);
+		this.shell.setDefaultButton(btnSave);
+		btnSave.setText("Save Maze");
+		btnSave.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		btnSave.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				sendCommand("save_maze " + mazeName + " " + mazeName + ".maz");
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) { }
+		});
+		
+		Button btnLoad = new Button(cmpSaveLoad, SWT.PUSH | SWT.FILL);
+		this.shell.setDefaultButton(btnLoad);
+		btnLoad.setText("Load Maze");
+		btnLoad.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		btnLoad.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				sendCommand("load_maze " + mazeName + " " + mazeName + ".maz");
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) { }
+		});
+		
+		
+		// Label(this.shell, SWT.NONE);
+		
+		
+		/*Button btnHint = new Button(cmpGenerateHint, SWT.PUSH | SWT.FILL);
 		this.shell.setDefaultButton(btnHint);
 		btnHint.setText("Hint");
 		btnHint.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
@@ -146,7 +182,7 @@ public class MazeWindow extends BasicWindow implements View {
 			
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) { }
-		});
+		});*/
 		
 		Composite cmpSolve = new Composite(buttons, SWT.NONE);
 		cmpSolve.setLayout(new GridLayout(1, false));
@@ -161,7 +197,7 @@ public class MazeWindow extends BasicWindow implements View {
 		cmbSolveAlgo.setItems(items);
 		cmbSolveAlgo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 	
-		btnSolve = new Button(cmpSolve, SWT.PUSH | SWT.FILL);
+		Button btnSolve = new Button(cmpSolve, SWT.PUSH | SWT.FILL);
 		this.shell.setDefaultButton(btnSolve);
 		btnSolve.setText("Solve");
 		btnSolve.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
@@ -170,7 +206,7 @@ public class MazeWindow extends BasicWindow implements View {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				if (mazeName == null)
-					view.displayMessage("Generate/Load a maze first!");
+					view.displayMessage("You must generate maze first.");
 				else sendCommand("solve " + mazeName + " " + cmbSolveAlgo.getText());
 			}
 
@@ -181,34 +217,7 @@ public class MazeWindow extends BasicWindow implements View {
 		Composite cmpLoad = new Composite(buttons, SWT.NONE);
 		cmpLoad.setLayout(new GridLayout(1, false));
 		cmpLoad.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 15));
-		/*
-		Label lblLoadFromDatabase = new Label(cmpLoad, SWT.NONE);
-		lblLoadFromDatabase.setText("Load maze from database");
-		lblLoadFromDatabase.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
 
-		final Combo cmbLoadFromDatabase = new Combo(cmpLoad, SWT.READ_ONLY);
-		sendCommand("GetDatabaseValues");
-		cmbLoadFromDatabase.setItems(this.itemsFromDatabase);
-		cmbLoadFromDatabase.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		
-		Button btnLoadFromDatabase = new Button(cmpLoad, SWT.PUSH | SWT.FILL);
-		this.shell.setDefaultButton(btnLoadFromDatabase);
-		btnLoadFromDatabase.setText("Load Maze");
-		btnLoadFromDatabase.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		btnLoadFromDatabase.addSelectionListener(new SelectionListener() {
-			
-			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				if (cmbLoadFromDatabase.getText() != "")
-					sendCommand("display " + cmbLoadFromDatabase.getText());
-				else view.displayMessage("Pick a maze from the list first!");
-			}
-			
-			@Override
-			public void widgetDefaultSelected(SelectionEvent arg0) { }
-		});
-		*/
-		
 		Menu menuBar = new Menu(shell, SWT.BAR);
 		MenuItem cascadeFileMenu = new MenuItem(menuBar, SWT.CASCADE);
 		cascadeFileMenu.setText("&File");
@@ -247,44 +256,6 @@ public class MazeWindow extends BasicWindow implements View {
 		MenuItem exitItem = new MenuItem(fileMenu, SWT.PUSH);
 		exitItem.setText("&Exit");
 		shell.setMenuBar(menuBar);
-
-//		Composite cmpSaveLoadFromFile = new Composite(buttons, SWT.NONE);
-//		cmpSaveLoadFromFile.setLayout(new GridLayout(1, false));
-//		cmpSaveLoadFromFile.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 13));
-//		
-//		Label lblLoadSaveFromFile = new Label(cmpSaveLoadFromFile, SWT.NONE);
-//		lblLoadSaveFromFile.setText("Load/Save (Files)");
-//		lblLoadSaveFromFile.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
-//		
-//		Button btnSave = new Button(cmpSaveLoadFromFile, SWT.PUSH | SWT.FILL);
-//		this.shell.setDefaultButton(btnSave);
-//		btnSave.setText("Save to file");
-//		btnSave.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-//		btnSave.addSelectionListener(new SelectionListener() {
-//			
-//			@Override
-//			public void widgetSelected(SelectionEvent arg0) {
-//				sendCommand("save_maze " + mazeName + " " + mazeName + ".maz");
-//			}
-//			
-//			@Override
-//			public void widgetDefaultSelected(SelectionEvent arg0) { }
-//		});
-//		
-//		Button btnLoad = new Button(cmpSaveLoadFromFile, SWT.PUSH | SWT.FILL);
-//		this.shell.setDefaultButton(btnLoad);
-//		btnLoad.setText("Load from file");
-//		btnLoad.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-//		btnLoad.addSelectionListener(new SelectionListener() {
-//			
-//			@Override
-//			public void widgetSelected(SelectionEvent arg0) {
-//				sendCommand("load_maze " + mazeName + " " + mazeName + ".maz");
-//			}
-//			
-//			@Override
-//			public void widgetDefaultSelected(SelectionEvent arg0) { }
-//		});
 		
 		Composite cmpExit = new Composite(buttons, SWT.NONE);
 		cmpExit.setLayout(new GridLayout(1, false));
@@ -319,42 +290,12 @@ public class MazeWindow extends BasicWindow implements View {
 	 */
 	protected void createHint() {
 		if (mazeName == null)
-			view.displayMessage("Generate/Load a maze first!");
+			view.displayMessage("You must generate maze first.");
 		else {
 			hint = true;
 			sendCommand("hint " + mazeName + " BFS");
 		}
 	}
-
-	/**
-	 * This method will initialize data members so we could call the mazeDisplay 
-	 * and draw the maze
-	 * @param Maze3d, the maze
-	 * @param String, maze name  
-	 */
-//	@Override
-//	public void mazeReady(Maze3d maze, String mazeName) {
-//		this.mazeName = mazeName;
-//		this.maze = maze;
-//		this.mazeDisplay.setCharacterPosition(this.maze.getStartPosition());
-//		this.crossSection = this.maze.getCrossSectionByZ(0);
-//		setIfCanGoUpOrDown(0);
-//		this.mazeDisplay.setCrossSection(this.crossSection, this.canUp, this.canDown);
-//		this.mazeDisplay.setGoalPosition(this.maze.getGoalPosition());
-//		this.mazeDisplay.setMazeName(this.mazeName);
-//	}
-
-	/**
-	 * Open Message Box and view the message msg on it
-//	 */
-//	@Override
-//	public void displayMessage(String msg) {
-//		MessageBox msgBox = new MessageBox(shell, SWT.ICON_INFORMATION);
-//		msgBox.setMessage(msg);
-//		msgBox.open();
-//		if (msg.equals(this.WINNER))	// new game
-//			this.mazeDisplay.setWinner(false);
-//	}
 
 	@Override
 	public void sendCommand(String commandLine) {
@@ -365,119 +306,13 @@ public class MazeWindow extends BasicWindow implements View {
 		}
 	}
 
-//	@Override
-//	public void displaySolution(final Solution<Position> solution) {
-//		if (this.hint) { // the user asked for only one step from the solution (a hint)
-//			this.hint = false;
-//			this.mazeDisplay.drawHint(solution.getStates().get(1).getValue());
-//		} else {
-//			this.animationSolutionTask = new TimerTask() {
-//				
-//				int i = 0;
-//				
-//				@Override
-//				public void run() {
-//					if (i < solution.getStates().size())
-//						move(solution.getStates().get(i++).getState());
-//					else {
-//						display.syncExec(new Runnable() {
-//	
-//							@Override
-//							public void run() {
-//								winner();
-//							}
-//							
-//						});
-//						cancel();
-//					}
-//				}
-//			};
-//			this.showSolutionByAnimation = new Timer();
-//			this.showSolutionByAnimation.scheduleAtFixedRate(this.animationSolutionTask, 0, 500);
-//		}
-//	}
-
-//	@Override
-//	public void move(Position pos) {
-//		this.crossSection = this.maze.getCrossSectionByZ(pos.getZ());
-//		setIfCanGoUpOrDown(pos.getZ());
-//		this.mazeDisplay.setCrossSection(this.crossSection, this.canUp, this.canDown);
-//		this.mazeDisplay.setWhichFloorAmI(pos.getZ());
-//		this.mazeDisplay.moveTheCharacter(pos);
-//	}
-
-//	@Override
-//	public void winner() {
-//		this.crossSection = this.maze.getCrossSectionByZ(this.maze.getGoalPosition().getZ());
-//		this.mazeDisplay.setWhichFloorAmI(this.maze.getGoalPosition().getZ());
-//		setIfCanGoUpOrDown(this.maze.getGoalPosition().z);
-//		this.mazeDisplay.setCrossSection(this.crossSection, this.canUp, this.canDown);
-//		this.mazeDisplay.setWinner(true);
-//		this.displayMessage(this.WINNER);
-//		this.mazeDisplay.setEnabled(false);
-//		this.mazeDisplay.setWinner(false);
-//	}
-//	
-
-//	private void setIfCanGoUpOrDown(int floor) {
-//		boolean upPossible = false;
-//		boolean downPossible = false;
-//		this.canUp = new ArrayList<Point>();
-//		this.canDown = new ArrayList<Point>();
-//		
-//		if (floor < this.maze.getMaze().length - 1) {
-//			this.upperCrossSection = this.maze.getCrossSectionByZ(floor + 1);
-//			upPossible = true;
-//		}
-//		if (floor > 0) {
-//			this.lowerCrossSection = this.maze.getCrossSectionByZ(floor - 1);
-//			downPossible = true;
-//		}
-//		
-//		for (int i = 0; i < this.crossSection.length; i++) {
-//			for (int j = 0; j < this.crossSection[0].length; j++) {
-//				if (upPossible)
-//					checkForUp(i, j);
-//				if (downPossible)
-//					checkForDown(i, j);
-//			}
-//		}
-//	}
-
-//	private void checkForDown(int y, int x) {
-//		if (this.lowerCrossSection[y][x] == this.crossSection[y][x] && this.crossSection[y][x] == Maze3d.FREE)
-//			this.canDown.add(new Point(y, x));
-//	}
-
-//	private void checkForUp(int y, int x) {
-//		if (this.upperCrossSection[y][x] == this.crossSection[y][x] && this.crossSection[y][x] == Maze3d.FREE)
-//			this.canUp.add(new Point(y, x));
-//	}
-//
-//	/**
-//	 * get the databaseValues after split with ,
-//	 */
-//	public void databaseValues(String databaseValues) {
-//		this.itemsFromDatabase = databaseValues.split(",");
-//	}
-//
-//	/**
-//	 *create new load Window and open it
-//	 */
-//	public void dirListReady(String[] dirList) {
-//		LoadWindow winLoad = new LoadWindow(view, dirList[0]);
-//		winLoad.start(display);
-//	}
-	
 	@Override
 	public void notifyMazeIsReady(final String name) {
 		display.syncExec(new Runnable() {
 			
 			@Override
 			public void run() {
-				MessageBox msg = new MessageBox(shell);
-				msg.setMessage("Maze " + name + " is ready");
-				msg.open();	
+				displayMessage("Maze " + name + " is ready");
 				
 				setChanged();
 				notifyObservers("display_maze " + name);
@@ -493,8 +328,10 @@ public class MazeWindow extends BasicWindow implements View {
 
 	@Override
 	public void displayMessage(String msg) {
-		// TODO Auto-generated method stub
-		
+		MessageBox messageBox = new MessageBox(this.shell, SWT.ICON_INFORMATION | SWT.OK );
+		messageBox.setText("Message");
+		messageBox.setMessage(msg);
+		messageBox.open();
 	}
 	
 //	@Override

@@ -8,18 +8,19 @@ import java.util.TimerTask;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Shell;
 
-//import GUI.Character;
-import algorithms.mazeGenerators.GrowingTreeGenerator;
+
+
+
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import properties.Properties;
@@ -37,9 +38,7 @@ import properties.PropertiesManager;
  */
 public class MazeDisplay extends Canvas {
 	
-	private String mazeName;
 	private int whichFloorAmI;
-	private int[][] crossSection = { {0}, {0} };
 	private GameCharacter character;
 	private Image imgGoal;
 	private Image imgWinner;
@@ -53,11 +52,11 @@ public class MazeDisplay extends Canvas {
 	private Position goalPosition;
 	private List<Point> downHint;
 	private List<Point> upHint;
-//	private String mazeName;
+	private String mazeName;
 	private Maze3d maze;
 	private Position currPos;
 	private Position goal;
-//	private int[][] crossSection = { {0}, {0} };
+	private int[][] crossSection = { {0}, {0} };
 	private GameCharacter player;
 	private Timer timer;
 	private TimerTask timerTask;
@@ -107,7 +106,7 @@ public class MazeDisplay extends Canvas {
 						if (crossSection[i][j] != 0)
 							//e.gc.fillRectangle(x, y, cellWidth, cellHeight);
 							e.gc.drawImage(imgWall, 0, 0, imgWall.getBounds().width, imgWall.getBounds().height, x, y, cellWidth, cellHeight);
-						if (PropertiesManager.getProperties().getHint() == "true")
+						if (PropertiesManager.getInstance().getProperties().getHint() == "true")
 							paintUpDownHints(e, i, j, cellWidth, cellHeight);
 					}
 				}
@@ -146,37 +145,105 @@ public class MazeDisplay extends Canvas {
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
-				String command = null;
+				char direction = 0;
 				switch (e.keyCode) {
 				case SWT.ARROW_RIGHT:
-					command = "r " + mazeName;
+					direction = 'r';
 					break;
 				case SWT.ARROW_LEFT:
-					command = "l " + mazeName;
+					direction = 'l';
 					break;
 				case SWT.ARROW_UP:
-					command = "b " + mazeName;
+					direction = 'u';
 					break;
 				case SWT.ARROW_DOWN:
-					command = "f " + mazeName;
+					direction = 'd';
 					break;
 				case SWT.PAGE_DOWN:
-					command = "d " + mazeName;
+					direction = 'i';
 					break;
 				case SWT.PAGE_UP:
-					command = "u " + mazeName;
+					direction = 'o';
 					break;
 				default: break;
 				}
-				if (command != null) {
-//					view.executeCommand(command);
+				if (direction != 0) {
+					moveCharacter(direction);
 					redraw();
 				}
 			}
 		});
-
+		addZoomOption();
 	}
 
+	
+	/**
+	 * Move character by one to a given direction
+	 * @param direction
+	 */
+	private void moveCharacter(char direction) {
+		switch(direction){
+		case 'r':
+			this.currPos = new Position(this.currPos.getX(), this.currPos.getY(), this.currPos.getZ()+1);
+			break;
+		case 'l':
+			this.currPos = new Position(this.currPos.getX(), this.currPos.getY(), this.currPos.getZ()-1);
+			break;
+		case 'd':
+			this.currPos = new Position(this.currPos.getX(), this.currPos.getY()+1, this.currPos.getZ());
+			break;
+		case 'u':
+			this.currPos = new Position(this.currPos.getX(), this.currPos.getY()-1, this.currPos.getZ());
+			break;
+		case 'o':
+			this.currPos = new Position(this.currPos.getX()+1, this.currPos.getY(), this.currPos.getZ());
+			break;
+		case 'i':
+			this.currPos = new Position(this.currPos.getX()-1, this.currPos.getY(), this.currPos.getZ());
+			break;
+		}
+		
+	}
+	
+	/***
+	 * Zoom in\out when using Ctrl + Mouse Wheel
+	 * @param 
+	 */
+	private void addZoomOption()
+	{
+		addKeyListener(new KeyListener() {
+	        @Override
+	        public void keyPressed(final KeyEvent e) {    
+	           addMouseWheelListener(new MouseWheelListener() {
+	
+	                @Override
+	                public void mouseScrolled(MouseEvent g) {
+		                if(e.keyCode == SWT.CTRL){
+		                    if(g.count > 0){
+		                        int width = getSize().x;
+		                        int height = getSize().y;
+		                        setSize((int)(width * 1.05), (int)(height * 1.05));	
+		                    }
+		                    else {
+		                        int width = getSize().x;
+		                        int height = getSize().y;
+		                        setSize((int)(width * 0.95), (int)(height * 0.95));
+		                    }
+		                  }
+	
+	                  }
+	           });
+	        }
+	
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			} 
+		});
+	}
+
+	
 	public void setWinner(boolean winner) {
 		this.winner = winner;
 	}
@@ -198,7 +265,7 @@ public class MazeDisplay extends Canvas {
 		redrawMe();
 	}
 
-	public void moveTheCharacter(Position pos) {
+	public void moveToPosition(Position pos) {
 		this.character.setPos(pos);
 		redrawMe();
 	}

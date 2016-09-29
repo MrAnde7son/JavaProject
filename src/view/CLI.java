@@ -19,7 +19,8 @@ public class CLI extends Observable implements View  {
 	
 	public CLI(BufferedReader in, PrintWriter out) {
 		this.in = in;
-		this.out = out;		
+		this.out = out;
+		this.view = new MyView(in, out);
 	}
 	
 	private void printMenu() {

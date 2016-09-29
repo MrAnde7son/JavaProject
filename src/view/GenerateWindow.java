@@ -19,8 +19,6 @@ import org.eclipse.swt.widgets.Text;
  */
 public class GenerateWindow extends DialogWindow {
 
-	private MyView view;
-
 	public GenerateWindow(MyView view) {
 		this.view = view;
 	}

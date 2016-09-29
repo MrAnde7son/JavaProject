@@ -3,10 +3,11 @@ package view;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.util.Observable;
-import java.util.Observer;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.MessageBox;
 
 import algorithms.mazeGenerators.Maze3d;
-import controller.Controller;
 import properties.PropertiesManager;
 
 /***
@@ -14,7 +15,7 @@ import properties.PropertiesManager;
  * @author Itamar & Chen
  *
  */
-public class MyView extends Observable implements View, Observer {
+public class MyView extends Observable implements View {
 	
 	private BufferedReader in;
 	private PrintWriter out;
@@ -25,18 +26,14 @@ public class MyView extends Observable implements View, Observer {
 	public MyView(BufferedReader in, PrintWriter out) {
 		this.in = in;
 		this.out = out;
-		this.mazeWindow = null;
 		this.cli = null;
+		this.mazeWindow = null;
 		
 		String chosenView = chooseViewTypeFromProperties();
 		if (chosenView == "CLI")
 			this.cli = new CLI(in, out);
 		else
 			this.mazeWindow = new MazeWindow(this);
-
-		
-//		cli = new CLI(in, out);
-//		cli.addObserver(this);
 	}	
 	
 	/**
@@ -44,8 +41,7 @@ public class MyView extends Observable implements View, Observer {
 	 * @return the choose 
 	 */
 	private String chooseViewTypeFromProperties() {
-		PropertiesManager.getInstance();
-		switch (PropertiesManager.getProperties().getViewType().toLowerCase()) {
+		switch (PropertiesManager.getInstance().getProperties().getViewType().toLowerCase()) {
 		case "gui":
 			return "GUI";
 		case "cli":
@@ -66,7 +62,6 @@ public class MyView extends Observable implements View, Observer {
 		out.flush();
 	}
 
-	@Override
 	public void start() {
 		if (cli != null)
 			cli.start();
@@ -76,18 +71,12 @@ public class MyView extends Observable implements View, Observer {
 
 	@Override
 	public void displayMessage(String msg) {
-		out.println(msg);
-		out.flush();		
+		MessageBox messageBox = new MessageBox(this.mazeWindow.shell, SWT.ICON_INFORMATION | SWT.OK );
+		messageBox.setText("Message");
+		messageBox.setMessage(msg);
+		messageBox.open();	
 	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		if (o == cli || o == mazeWindow) {
-			setChanged();
-			notifyObservers(arg);
-		}
-	}
-
+	
 	@Override
 	public void sendCommand(String arg) {
 		setChanged();
