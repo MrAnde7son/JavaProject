@@ -3,9 +3,6 @@ package view;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -28,8 +25,7 @@ public class GenerateWindow extends DialogWindow {
 		this.shell = new Shell(display, SWT.TITLE | SWT.CLOSE);
 		this.shell.setText("Generation Window");
 		this.shell.setLayout(new GridLayout(2, false));
-		this.shell.setSize(215, 215);
-//		this.shell.setBackgroundImage(new Image(null, "resources/images/backgroundSmall.png"));
+		this.shell.setSize(215, 200);
 		this.shell.setBackgroundMode(SWT.INHERIT_DEFAULT);
 		
 		Rectangle bounds = display.getPrimaryMonitor().getBounds();
@@ -37,6 +33,11 @@ public class GenerateWindow extends DialogWindow {
 		int x = bounds.x + (bounds.width - rec.width) / 2;
 		int y = bounds.y + (bounds.height - rec.height) / 2;
 		shell.setLocation(x, y);
+		
+		Label nameLabel = new Label(this.shell, SWT.NONE);
+		nameLabel.setText("Name: ");
+		final Text nameTxt = new Text(this.shell, SWT.BORDER);
+		nameTxt.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		
 		Label floorsLabel = new Label(this.shell, SWT.NONE);
 		floorsLabel.setText("Floors:");
@@ -52,11 +53,6 @@ public class GenerateWindow extends DialogWindow {
 		colsLabel.setText("Columns: ");
 		final Text colsTxt = new Text(this.shell, SWT.BORDER);
 		colsTxt.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		
-		Label nameLabel = new Label(this.shell, SWT.NONE);
-		nameLabel.setText("Name: ");
-		final Text nameTxt = new Text(this.shell, SWT.BORDER);
-		nameTxt.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		
 		Button newGameButton = new Button(shell, SWT.PUSH);
 		newGameButton.setText("New Game");

@@ -65,7 +65,6 @@ public class MyModel extends Observable implements Model {
 					generator = new SimpleMaze3dGenerator();
 				Maze3d maze = generator.generate(x,y,z);
 				mazes.put(name, maze);
-				
 				setChanged();
 				notifyObservers("maze_ready " + name);		
 				return maze;

@@ -21,7 +21,6 @@ public class Properties implements Serializable {
 	private String viewType;
 	private int numOfThreads;
 	private String zipFilePath;
-	private String hint;
 	
 	public Properties() {
 		name = "";
@@ -33,7 +32,6 @@ public class Properties implements Serializable {
 		viewType = null;
 		numOfThreads = 8;
 		zipFilePath = null;
-		hint = null;
 		
 	}
 	
@@ -94,11 +92,4 @@ public class Properties implements Serializable {
 	public void setZipFilePath(String zipFilePath) {
 		this.zipFilePath = zipFilePath;
 	}
-	public String getHint() {
-		return hint;
-	}
-	public void setHint(String hint) {
-		this.hint = hint;
-	}
-
 }

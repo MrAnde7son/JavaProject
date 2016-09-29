@@ -70,7 +70,8 @@ public class CLI extends Observable implements View  {
 	}
 
 	@Override
-	public void displayMaze(Maze3d maze) {
+	public void displayMaze(String name, Maze3d maze) {
+		out.write(name + "\n");
 		out.write(maze.toString());
 		out.flush();
 	}

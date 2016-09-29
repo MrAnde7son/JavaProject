@@ -1,6 +1,5 @@
 package presenter;
 
-import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -21,16 +20,12 @@ public class Presenter implements Observer {
 	private Model model;
 	private View view;
 	private CommandsManager commandsManager;
-	private HashMap<String, Command> commands;
 	
 	// Ctor
 	public Presenter(Model model, View view) {
 		this.model = model;
 		this.view = view;
-		
-		// Creating new commandManager for mapping String to Command
 		commandsManager = new CommandsManager(model, view);
-		commands = commandsManager.getCommandsMap();
 	}
 
 	
@@ -48,6 +43,7 @@ public class Presenter implements Observer {
 			commandsManager.executeCommand(cmd);
 		if(o == model)
 			view.displayMessage(cmd);
+		
 	}
 		
 }

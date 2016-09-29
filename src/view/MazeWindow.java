@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
@@ -25,6 +26,8 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+
+import properties.PropertiesManager;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
@@ -37,9 +40,6 @@ import algorithms.search.Solution;
 public class MazeWindow extends BasicWindow implements View {
 
 	private MazeDisplay mazeDisplay;
-	private boolean hint;
-	private Maze3d maze;
-	private String mazeName;
 	private List<Point> canUp;
 	private List<Point> canDown;
 	private int[][] crossSection;
@@ -106,11 +106,11 @@ public class MazeWindow extends BasicWindow implements View {
 //		lblMenu.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, true, 1, 1));
 //		lblMenu.setImage(imgMenu);
 //		
-		Composite cmpGenerateHint = new Composite(buttons, SWT.NONE);
-		cmpGenerateHint.setLayout(new GridLayout(1, false));
-		cmpGenerateHint.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 13));
+		Composite cmpGenerate = new Composite(buttons, SWT.NONE);
+		cmpGenerate.setLayout(new GridLayout(1, false));
+		cmpGenerate.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 13));
 		
-		Button btnGenerateMaze = new Button(cmpGenerateHint, SWT.PUSH);
+		Button btnGenerateMaze = new Button(cmpGenerate, SWT.PUSH);
 		this.shell.setDefaultButton(btnGenerateMaze);
 		btnGenerateMaze.setText("Generate new maze");
 		btnGenerateMaze.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
@@ -138,12 +138,13 @@ public class MazeWindow extends BasicWindow implements View {
 		Button btnSave = new Button(cmpSaveLoad, SWT.PUSH | SWT.FILL);
 		this.shell.setDefaultButton(btnSave);
 		btnSave.setText("Save Maze");
+		btnSave.setEnabled(false);
 		btnSave.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		btnSave.addSelectionListener(new SelectionListener() {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				sendCommand("save_maze " + mazeName + " " + mazeName + ".maz");
+				sendCommand("save " + mazeDisplay.getMazeName() + " " + mazeDisplay.getMazeName() + ".maz");
 			}
 			
 			@Override
@@ -158,31 +159,12 @@ public class MazeWindow extends BasicWindow implements View {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				sendCommand("load_maze " + mazeName + " " + mazeName + ".maz");
+				sendCommand("load " + mazeDisplay.getMazeName() + " " + mazeDisplay.getMazeName() + ".maz");
 			}
 			
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) { }
 		});
-		
-		
-		// Label(this.shell, SWT.NONE);
-		
-		
-		/*Button btnHint = new Button(cmpGenerateHint, SWT.PUSH | SWT.FILL);
-		this.shell.setDefaultButton(btnHint);
-		btnHint.setText("Hint");
-		btnHint.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		btnHint.addSelectionListener(new SelectionListener() {
-			
-			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				createHint();
-			}
-			
-			@Override
-			public void widgetDefaultSelected(SelectionEvent arg0) { }
-		});*/
 		
 		Composite cmpSolve = new Composite(buttons, SWT.NONE);
 		cmpSolve.setLayout(new GridLayout(1, false));
@@ -205,9 +187,9 @@ public class MazeWindow extends BasicWindow implements View {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				if (mazeName == null)
+				if (mazeDisplay.getMaze() == null)
 					view.displayMessage("You must generate maze first.");
-				else sendCommand("solve " + mazeName + " " + cmbSolveAlgo.getText());
+				else sendCommand("solve " + mazeDisplay.getMazeName() + " " + cmbSolveAlgo.getText());
 			}
 
 			@Override
@@ -221,32 +203,51 @@ public class MazeWindow extends BasicWindow implements View {
 		Menu menuBar = new Menu(shell, SWT.BAR);
 		MenuItem cascadeFileMenu = new MenuItem(menuBar, SWT.CASCADE);
 		cascadeFileMenu.setText("&File");
+		shell.setMenuBar(menuBar);
 		
 		Menu fileMenu = new Menu(shell, SWT.DROP_DOWN);
 		cascadeFileMenu.setMenu(fileMenu);
+		
 		MenuItem saveItem = new MenuItem(fileMenu, SWT.PUSH);
-		saveItem.setText("&Save");
+		saveItem.setText("&Save\tCTRL+S");
+		saveItem.setAccelerator(SWT.CTRL + 'S');
 		saveItem.setEnabled(false);
 		saveItem.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				sendCommand("save_maze " + mazeDisplay.getMazeName() + " " + mazeDisplay.getMazeName() + ".maz");
+			}
 			
-		@Override
-		public void widgetSelected(SelectionEvent arg0) {
-			sendCommand("save_maze " + mazeName + " " + mazeName + ".maz");
-		}
-		
-		@Override
-		public void widgetDefaultSelected(SelectionEvent arg0) { }
-	});
-		shell.setMenuBar(menuBar);
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) { }
+		});
 		
 		MenuItem loadItem = new MenuItem(fileMenu, SWT.PUSH);
-		loadItem.setText("&Load");
-		shell.setMenuBar(menuBar);
+		loadItem.setText("&Load\tCTRL+L");
+		saveItem.setAccelerator(SWT.CTRL + 'L');
 		loadItem.addSelectionListener(new SelectionListener() {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				sendCommand("load_maze " + mazeName + " " + mazeName + ".maz");
+				sendCommand("load_maze " + mazeDisplay.getMazeName() + " " + mazeDisplay.getMazeName() + ".maz");
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) { }
+		});
+		
+		MenuItem loadPropItem = new MenuItem(fileMenu, SWT.PUSH);
+		loadPropItem.setText("&Load Properties");
+		
+		loadPropItem.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				FileDialog fd = new FileDialog(shell, SWT.OPEN);
+		        fd.setText("Load Properties File");
+		        fd.setFilterPath("resources/");
+		        String[] filterExt = { "*.xml", "*.*" };
+		        fd.setFilterExtensions(filterExt);
+		        String selected = fd.open();
 			}
 			
 			@Override
@@ -283,18 +284,14 @@ public class MazeWindow extends BasicWindow implements View {
 		mazeDisplay.setFocus();
 	}
 	
-	/**
-	 * This method check if we have maze name
-	 * else we will sent with executeCommand the "hint " + mazeName + " BFS" 
-	 * to call the hint command
+	/***
+	 * 
+	 * @param maze. Maze3d
 	 */
-	protected void createHint() {
-		if (mazeName == null)
-			view.displayMessage("You must generate maze first.");
-		else {
-			hint = true;
-			sendCommand("hint " + mazeName + " BFS");
-		}
+	public void initMaze(String name, Maze3d maze) {
+		this.mazeDisplay.initializeMaze(name, maze);
+		this.crossSection = this.mazeDisplay.getMaze().getCrossSectionByZ(0);
+		this.mazeDisplay.setCrossSection(this.crossSection);
 	}
 
 	@Override
@@ -315,15 +312,14 @@ public class MazeWindow extends BasicWindow implements View {
 				displayMessage("Maze " + name + " is ready");
 				
 				setChanged();
-				notifyObservers("display_maze " + name);
+				notifyObservers("display " + name);
 			}
 		});			
 	}
 
 	@Override
-	public void displayMaze(Maze3d maze) {
-		// TODO Auto-generated method stub
-		
+	public void displayMaze(String name, Maze3d maze) {
+		this.view.displayMaze(name, maze);
 	}
 
 	@Override

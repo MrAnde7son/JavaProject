@@ -53,10 +53,10 @@ public class PropertiesManager {
 		return instance;
 	}
 	
-	public Properties readXML() {
+	public Properties readXML(String path) {
 		getInstance();
 		try {
-			File file = new File("resources/properties.xml");
+			File file = new File(path);
 			JAXBContext jaxbContext = JAXBContext.newInstance(Properties.class);
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			properties = (Properties)unmarshaller.unmarshal(file);

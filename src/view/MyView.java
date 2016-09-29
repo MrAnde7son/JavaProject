@@ -21,7 +21,6 @@ public class MyView extends Observable implements View {
 	private PrintWriter out;
 	private CLI cli;
 	private MazeWindow mazeWindow;
-
 	
 	public MyView(BufferedReader in, PrintWriter out) {
 		this.in = in;
@@ -52,14 +51,18 @@ public class MyView extends Observable implements View {
 	}
 	@Override
 	public void notifyMazeIsReady(String name) {
-		this.out.write("maze " + name + " is ready");
-		out.flush();
+		displayMessage("Maze " + name + " is ready!");
 	}
 
 	@Override
-	public void displayMaze(Maze3d maze) {
+	public void displayMaze(String name, Maze3d maze) {
+		if(cli == null){
+			this.mazeWindow.initMaze(name,maze);
+		}
+		else {
 		this.out.write(maze.toString());
 		out.flush();
+		}
 	}
 
 	public void start() {

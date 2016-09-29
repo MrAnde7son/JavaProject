@@ -101,8 +101,9 @@ public class CommandsManager {
 
 		@Override
 		public void doCommand(String args) {
-			Maze3d maze = model.getMaze(args.split(" ")[0]);
-			view.displayMaze(maze);
+			String name = args.split(" ")[0];
+			Maze3d maze = model.getMaze(name);
+			view.displayMaze(name,maze);
 		}		
 	}
 	/***
@@ -142,7 +143,11 @@ public class CommandsManager {
 
 		@Override
 		public void doCommand(String args) {
-			view.notifyMazeIsReady(args.split(" ")[0]);
+			String[] params = args.split(" ");
+			String name = params[0];
+			Maze3d maze = model.getMaze(name);
+			view.notifyMazeIsReady(name);
+			view.displayMaze(name,maze);
 		}		
 	}
 	/***

@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.Composite;
 
 
 
+
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import properties.Properties;
@@ -46,18 +47,15 @@ public class MazeDisplay extends Canvas {
 	private Image imgDown;
 	private Image imgUpDown;
 	private Image imgWall;
-	private boolean drawMeAHint;
-	private Position hintPosition;
-	private boolean winner;
 	private Position goalPosition;
 	private List<Point> downHint;
 	private List<Point> upHint;
 	private String mazeName;
 	private Maze3d maze;
 	private Position currPos;
-	private Position goal;
 	private int[][] crossSection = { {0}, {0} };
 	private GameCharacter player;
+	private boolean winner;
 	private Timer timer;
 	private TimerTask timerTask;
 	private Properties properties;
@@ -69,17 +67,12 @@ public class MazeDisplay extends Canvas {
 		this.whichFloorAmI = 0;
 		this.character = new GameCharacter();
 		this.character.setPos(new Position(-1, -1, -1));
-//		this.imgGoal = new Image(null,"resources/images/apple.png");
 		this.imgGoal = new Image(null,"resources/images/chicken.png");
-//		this.imgWinner = new Image(null,"resources/images/winner.gif");
 		this.imgWinner = new Image(null,"resources/images/peter vs chicken.jpg");
 		this.imgUp = new Image(null, "resources/images/up.gif");
 		this.imgDown = new Image(null, "resources/images/down.gif");
 		this.imgUpDown = new Image(null, "resources/images/updown.gif");
 		this.imgWall = new Image(null, "resources/images/wall.png");
-		this.drawMeAHint = false;
-		this.hintPosition = null;
-		this.winner = false;
 		this.goalPosition= new Position(-1, -1, -1);
 		this.upHint = new ArrayList<Point>();
 		this.downHint = new ArrayList<Point>();
@@ -106,14 +99,7 @@ public class MazeDisplay extends Canvas {
 						if (crossSection[i][j] != 0)
 							//e.gc.fillRectangle(x, y, cellWidth, cellHeight);
 							e.gc.drawImage(imgWall, 0, 0, imgWall.getBounds().width, imgWall.getBounds().height, x, y, cellWidth, cellHeight);
-						if (PropertiesManager.getInstance().getProperties().getHint() == "true")
-							paintUpDownHints(e, i, j, cellWidth, cellHeight);
 					}
-				}
-				
-				if (drawMeAHint) {
-					drawMeAHint = false;
-					e.gc.drawImage(imgGoal, 0, 0, imgGoal.getBounds().width, imgGoal.getBounds().height, (cellWidth * hintPosition.getX()) + (cellWidth / 4), (cellHeight * hintPosition.getY()) + (cellHeight / 4), cellWidth/2, cellHeight/2);
 				}
 				
 				if (!winner) {
@@ -123,18 +109,6 @@ public class MazeDisplay extends Canvas {
 				} else e.gc.drawImage(imgWinner, 0, 0, imgWinner.getBounds().width, imgWinner.getBounds().height, cellWidth * goalPosition.getX(), cellHeight * goalPosition.getY(), cellWidth, cellHeight);
 				
 				forceFocus();
-			}
-			
-			private void paintUpDownHints(PaintEvent e, int i, int j, int cellWidth, int cellHeight) {
-				Point upDownHint = new Point(i, j);
-				if (upHint.contains(upDownHint) && downHint.contains(upDownHint))
-					e.gc.drawImage(imgUpDown, 0, 0, imgUpDown.getBounds().width, imgUpDown.getBounds().height, cellWidth * j, cellHeight * i, cellWidth, cellHeight);
-				else {
-					if (upHint.contains(upDownHint))
-						e.gc.drawImage(imgUp, 0, 0, imgUp.getBounds().width, imgUp.getBounds().height, cellWidth * j, cellHeight * i, cellWidth, cellHeight);
-					else if (downHint.contains(upDownHint))
-							e.gc.drawImage(imgDown, 0, 0, imgDown.getBounds().width, imgDown.getBounds().height, cellWidth * j, cellHeight * i, cellWidth, cellHeight);
-				}
 			}
 		});
 		
@@ -243,6 +217,12 @@ public class MazeDisplay extends Canvas {
 		});
 	}
 
+	public void initializeMaze(String name, Maze3d maze){
+		this.mazeName = name;
+		this.maze = maze;
+		this.currPos = maze.getStartPosition();
+		this.goalPosition = maze.getGoalPosition();
+	}
 	
 	public void setWinner(boolean winner) {
 		this.winner = winner;
@@ -253,10 +233,8 @@ public class MazeDisplay extends Canvas {
 	}
 
 
-	public void setCrossSection(int[][] crossSection, List<Point> upHint, List<Point> downHint) {
+	public void setCrossSection(int[][] crossSection) {
 		this.crossSection = crossSection;
-		this.upHint = upHint;
-		this.downHint = downHint;
 		redrawMe();
 	}
 
@@ -278,12 +256,6 @@ public class MazeDisplay extends Canvas {
 		this.goalPosition = goalPosition;
 	}
 	
-	public void drawHint(Position hintPos) {
-		this.drawMeAHint = true;
-		this.hintPosition = hintPos;
-		redrawMe();
-	}
-	
 	private void redrawMe() {
 		getDisplay().syncExec(new Runnable() {
 
@@ -294,6 +266,21 @@ public class MazeDisplay extends Canvas {
 			}
 			
 		});
+	}
+
+
+	public Maze3d getMaze() {
+		return maze;
+	}
+
+
+	public void setMaze(Maze3d maze) {
+		this.maze = maze;
+	}
+
+
+	public String getMazeName() {
+		return mazeName;
 	}
 
 }

@@ -2,7 +2,7 @@
 <properties>
     <name></name>
     <numOfThreads>8</numOfThreads>
-    <viewType>CLI</viewType>
+    <viewType>GUI</viewType>
     <x>0</x>
     <y>0</y>
     <z>0</z>
