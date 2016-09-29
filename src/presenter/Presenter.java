@@ -43,22 +43,11 @@ public class Presenter implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		String commandLine = (String)arg; // Get message from the observable
-		
-		String arr[] = commandLine.split(" "); // Parse message
-		String command = arr[0];			
-		
-		if(!commands.containsKey(command)) { // Check if there is no a string to command
-			view.displayMessage("Command doesn't exist");			
-		}
-		else {
-			String commandArgs = null;
-			if (arr.length > 1) {
-				commandArgs = commandLine.substring(
-						commandLine.indexOf(" ") + 1);							
-			}
-			Command cmd = commands.get(command); // get the parsed Command
-			cmd.doCommand(commandArgs);	// Do the parsed Command
-		}
+		String cmd = (String)arg;
+		if(o == view)
+			commandsManager.executeCommand(cmd);
+		if(o == model)
+			view.displayMessage(cmd);
 	}
+		
 }

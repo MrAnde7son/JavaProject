@@ -21,8 +21,8 @@ public class MyView extends Observable implements View {
 	private PrintWriter out;
 	private CLI cli;
 	private MazeWindow mazeWindow;
-//	private Controller controller;
 
+	
 	public MyView(BufferedReader in, PrintWriter out) {
 		this.in = in;
 		this.out = out;
@@ -52,13 +52,13 @@ public class MyView extends Observable implements View {
 	}
 	@Override
 	public void notifyMazeIsReady(String name) {
-		out.println("maze " + name + " is ready");
+		this.out.write("maze " + name + " is ready");
 		out.flush();
 	}
 
 	@Override
 	public void displayMaze(Maze3d maze) {
-		out.println(maze);
+		this.out.write(maze.toString());
 		out.flush();
 	}
 
@@ -71,10 +71,16 @@ public class MyView extends Observable implements View {
 
 	@Override
 	public void displayMessage(String msg) {
-		MessageBox messageBox = new MessageBox(this.mazeWindow.shell, SWT.ICON_INFORMATION | SWT.OK );
-		messageBox.setText("Message");
-		messageBox.setMessage(msg);
-		messageBox.open();	
+		if(cli == null){
+			MessageBox messageBox = new MessageBox(this.mazeWindow.shell, SWT.ICON_INFORMATION | SWT.OK );
+			messageBox.setText("Message");
+			messageBox.setMessage(msg);
+			messageBox.open();
+		}
+		else {
+			this.out.write(msg);
+			this.out.flush();
+		}
 	}
 	
 	@Override

@@ -3,6 +3,7 @@ package presenter;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+
 import algorithms.mazeGenerators.Maze3d;
 import model.Model;
 import view.View;
@@ -19,27 +20,46 @@ public class CommandsManager {
 	
 	private Model model;
 	private View view;
-		
+	HashMap<String, Command> commands;
+	
 	public CommandsManager(Model model, View view) {
 		this.model = model;
-		this.view = view;		
+		this.view = view;
+		this.commands = new HashMap<String, Command>();
+		this.commands.put("dir", new DirCommand());
+		this.commands.put("generate_maze", new GenerateMazeCommand());
+		this.commands.put("display", new DisplayMazeCommand());
+		this.commands.put("display_cross_section", new DisplayCrossSectionCommand());
+		this.commands.put("solve_maze", new SolveMazeCommand());
+		this.commands.put("display_solution", new DisplaySolutionCommand());
+		this.commands.put("maze_ready", new MazeReadyCommand());
+		this.commands.put("load", new LoadMazeCommand());
+		this.commands.put("save", new SaveMazeCommand());
+		this.commands.put("exit", new ExitCommand());
+	
+	}
+	
+	public void executeCommand(String command){
+		// Parse message
+		String[] splitted = command.split(" ");
+		String cmd = splitted[0];			
+		// Check if there is no a string to command
+		if(!commands.containsKey(cmd)) { 
+			this.view.displayMessage("Command doesn't exist");			
+		}
+		else {
+			String commandArgs = "";
+			if (splitted.length > 1) {
+				commandArgs = command.substring(
+						command.indexOf(" ") + 1);							
+			}
+			// Get and execute the command
+			commands.get(cmd).doCommand(commandArgs);; 
+		}
 	}
 	
 	public HashMap<String, Command> getCommandsMap() {
-		HashMap<String, Command> commands = new HashMap<String, Command>();
-		commands.put("dir", new DirCommand());
-		commands.put("generate_maze", new GenerateMazeCommand());
-		commands.put("display", new DisplayMazeCommand());
-		commands.put("display_cross_section", new DisplayCrossSectionCommand());
-		commands.put("solve_maze", new SolveMazeCommand());
-		commands.put("display_solution", new DisplaySolutionCommand());
-		commands.put("maze_ready", new MazeReadyCommand());
-		commands.put("load", new LoadMazeCommand());
-		commands.put("save", new SaveMazeCommand());
-		commands.put("exit", new ExitCommand());
-		
-		
-		return commands;
+		return this.commands;
 	}
 	
 	class GenerateMazeCommand implements Command {

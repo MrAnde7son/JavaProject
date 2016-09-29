@@ -15,25 +15,27 @@ import algorithms.mazeGenerators.Maze3d;
 public class CLI extends Observable implements View  {
 	private BufferedReader in;
 	private PrintWriter out;	
-	private MyView view;
+	
+	public CLI(){
+		
+	}
 	
 	public CLI(BufferedReader in, PrintWriter out) {
 		this.in = in;
 		this.out = out;
-		this.view = new MyView(in, out);
 	}
 	
 	private void printMenu() {
-		out.print("Choose command: ");
-		this.view.displayMessage("\tdir <path>");
-		this.view.displayMessage("\tgenerate_maze <name> <params>");
-		this.view.displayMessage("\tdisplay <name>");
-		this.view.displayMessage("\tdisplay_cross_section <name> <axis> <index>");
-		this.view.displayMessage("\tsave_maze <name> <file_name>");
-		this.view.displayMessage("\tload_maze <file_name> <name>");
-		this.view.displayMessage("\tsolve <name> <algorithm>");
-		this.view.displayMessage("\tdisplay_solution <name>");
-		this.view.displayMessage("\texit");
+		out.print("Choose command: \n");
+		displayMessage("\tdir <path>\n");
+		displayMessage("\tgenerate_maze <name> <params>\n");
+		displayMessage("\tdisplay <name>\n");
+		displayMessage("\tdisplay_cross_section <name> <axis> <index>\n");
+		displayMessage("\tsave_maze <name> <file_name>\n");
+		displayMessage("\tload_maze <file_name> <name>\n");
+		displayMessage("\tsolve <name> <algorithm>\n");
+		displayMessage("\tdisplay_solution <name>\n");
+		displayMessage("\texit\n");
 		out.flush();
 	}
 	
@@ -50,7 +52,7 @@ public class CLI extends Observable implements View  {
 						sendCommand(commandLine);
 						
 						if (commandLine.equals("exit"))
-							break;
+							System.exit(0);
 						
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -63,17 +65,20 @@ public class CLI extends Observable implements View  {
 
 	@Override
 	public void notifyMazeIsReady(String name) {
-		this.view.notifyMazeIsReady(name);
+		out.write("Maze " + name + " is ready.");
+		out.flush();
 	}
 
 	@Override
 	public void displayMaze(Maze3d maze) {
-		this.view.displayMaze(maze);
+		out.write(maze.toString());
+		out.flush();
 	}
 
 	@Override
 	public void displayMessage(String msg) {
-		this.view.displayMessage(msg);
+		out.write(msg);
+		out.flush();
 	}
 
 	@Override
