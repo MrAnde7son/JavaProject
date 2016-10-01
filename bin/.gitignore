@@ -1,9 +1,2 @@
-/resources
-/algorithms
-/view
-/properties
-/boot
-/model
-/presenter
-/server
-/client
+/model/
+/properties/

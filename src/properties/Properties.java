@@ -23,12 +23,12 @@ public class Properties implements Serializable {
 	private String zipFilePath;
 	
 	public Properties() {
-		name = "";
-		generationAlgorithm = null;
-		x = 0;
-		y = 0;
-		z = 0;
-		searchingAlgorithm = null;
+		name = "Default";
+		generationAlgorithm = "GrowingTree";
+		x = 5;
+		y = 5;
+		z = 5;
+		searchingAlgorithm = "BFS";
 		viewType = null;
 		numOfThreads = 8;
 		zipFilePath = null;

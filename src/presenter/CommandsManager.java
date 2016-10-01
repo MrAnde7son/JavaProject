@@ -67,6 +67,7 @@ public class CommandsManager {
 		@Override
 		public void doCommand(String args) {
 			String[] params = args.split(" ");
+			System.out.println(params[0] +" "+params[1]);
 			String name = params[0];
 			int x = Integer.parseInt(params[1]);
 			int y = Integer.parseInt(params[2]);

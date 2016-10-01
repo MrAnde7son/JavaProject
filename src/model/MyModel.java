@@ -53,7 +53,7 @@ public class MyModel extends Observable implements Model {
 	}				
 				
 	@Override
-	public void generateMaze(final String name, final int x, final int y, final int z) {
+	public void generateMaze(String name, int x, int y, int z) {
 		executor.submit(new Callable<Maze3d>() {
 
 			@Override
@@ -65,6 +65,7 @@ public class MyModel extends Observable implements Model {
 					generator = new SimpleMaze3dGenerator();
 				Maze3d maze = generator.generate(x,y,z);
 				mazes.put(name, maze);
+				System.out.println(maze);
 				setChanged();
 				notifyObservers("maze_ready " + name);		
 				return maze;

@@ -1,6 +1,9 @@
 package view;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Rectangle;
@@ -10,6 +13,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.events.KeyEvent.*;
+
 /**
  * Represents the GenerateWindow of Maze3d.
  * @author Itamar&Erlich
@@ -27,7 +32,7 @@ public class GenerateWindow extends DialogWindow {
 		this.shell.setLayout(new GridLayout(2, false));
 		this.shell.setSize(215, 200);
 		this.shell.setBackgroundMode(SWT.INHERIT_DEFAULT);
-		
+
 		Rectangle bounds = display.getPrimaryMonitor().getBounds();
 		Rectangle rec = shell.getBounds();
 		int x = bounds.x + (bounds.width - rec.width) / 2;
@@ -67,10 +72,10 @@ public class GenerateWindow extends DialogWindow {
 				int cols = 0;
 				String mazeName = null;
 				try {
+					mazeName = nameTxt.getText();
 					floors = Integer.parseInt(floorsTxt.getText());
 					rows = Integer.parseInt(rowsTxt.getText());
 					cols = Integer.parseInt(colsTxt.getText());
-					mazeName = nameTxt.getText();
 				} catch (NullPointerException | NumberFormatException e) {
 					view.displayMessage("Invalid arguments.");
 				}
